@@ -506,12 +506,41 @@
     .hero-art{max-width:380px}
     .cats{grid-template-columns:1fr 1fr}
     .grid{grid-template-columns:1fr 1fr}
+    .cat-row{grid-template-columns:repeat(2,1fr);gap:16px}
     .menu{display:none}
     .admin-add .fields{grid-template-columns:1fr 1fr}
   }
   @media(max-width:540px){
-    .grid{grid-template-columns:1fr 1fr;gap:13px}
+    .promo{font-size:13px;gap:10px;padding:10px 14px}
+    .nav{padding:12px 16px}
+    .logo .txt b{font-size:23px}
+    .hero{padding:36px 16px 20px}
+    .hero h1{font-size:clamp(34px,9vw,48px)}
+    .hero p{font-size:15.5px}
+    .hero-art{max-width:300px;margin:0 auto}
+    .brandcard{padding:14px}
+    .brand-logo{width:170px}
+    .cats{grid-template-columns:1fr 1fr;padding:18px 16px;gap:11px}
+    .cat{aspect-ratio:1/1}
+    .cat .cat-inner{padding:11px;gap:8px}
+    .cat .ico{width:32px;height:32px}
+    .cat b{font-size:13px}
+    .cat small{font-size:11px}
+    .shop-head{padding:0 16px}
+    .shop-head h2{font-size:34px}
+    .grid{grid-template-columns:repeat(2,1fr);gap:12px;padding:0 16px 32px}
+    .cat-row{grid-template-columns:repeat(2,1fr);gap:12px}
+    .cat-section-head h3{font-size:18px}
+    .card .name{min-height:auto;font-size:13.5px}
+    .card .body{padding:12px 12px 14px}
+    .card .price{font-size:19px}
+    .card .add{padding:8px 11px;font-size:12.5px}
+    .card .row{flex-wrap:wrap;gap:6px}
+    footer .fwrap{grid-template-columns:1fr;gap:26px}
+  }
+  @media(max-width:380px){
     .cats{grid-template-columns:1fr}
+    .grid,.cat-row{grid-template-columns:1fr}
     .card .name{min-height:auto}
   }
 </style>
@@ -804,10 +833,10 @@ const PRODUCTS = [
 const ADMIN_PIN = "3333";
 const FREE_SHIP = 200;
 const CAT_INFO = {
-  supl:  {label:"Suplimente & Remedii", bg:"cat-supl.jpg", ico:'<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'},
-  cosm:  {label:"Cosmetice naturale",   bg:"cat-cosm.jpg", ico:'<path d="M12 2v6M9 8h6l1 4a5 5 0 0 1-5 5 5 5 0 0 1-5-5l1-4Z"/><path d="M7 21h10"/>'},
-  apic:  {label:"Produse apicole",      bg:"cat-apic.jpg", ico:'<path d="M12 2 4 7v10l8 5 8-5V7l-8-5Z"/><path d="M12 7v10M8 9.5v5M16 9.5v5"/>'},
-  terap: {label:"Produse terapeutice",  bg:"cat-terap.jpg", ico:'<path d="M11 2v3M11 19v3M2 11h3M19 11h3"/><circle cx="11" cy="11" r="6"/>'},
+  supl:  {label:"Suplimente & Remedii", bg:"catsupl.jpg", ico:'<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'},
+  cosm:  {label:"Cosmetice naturale",   bg:"catcosm.jpg", ico:'<path d="M12 2v6M9 8h6l1 4a5 5 0 0 1-5 5 5 5 0 0 1-5-5l1-4Z"/><path d="M7 21h10"/>'},
+  apic:  {label:"Produse apicole",      bg:"catapic.jpg", ico:'<path d="M12 2 4 7v10l8 5 8-5V7l-8-5Z"/><path d="M12 7v10M8 9.5v5M16 9.5v5"/>'},
+  terap: {label:"Produse terapeutice",  bg:"catterap.jpg", ico:'<path d="M11 2v3M11 19v3M2 11h3M19 11h3"/><circle cx="11" cy="11" r="6"/>'},
 };
 const STORE_KEY = "nlb_products_v2";
 
