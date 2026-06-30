@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERDA — Magazin naturist</title>
+<style>
+  :root{
+    --verde:#5a8f33;        /* verde viu / iarbă — ca site-ul real */
+    --verde-2:#4a7a29;      /* verde mediu pentru footer/hover */
+    --verde-3:#cfe3bf;      /* verde pal accent */
+    --verde-inchis:#3d6420; /* verde profund pentru contrast text */
+    --crem:#eaf2ea;         /* verde foarte pal — fundal pagină */
+    --crem-2:#d6e6d8;       /* verde pal mai saturat — borduri/thumb */
+    --promo-bg:#dcedd5;     /* verde foarte pal — bara de sus, ca site-ul real */
+    --miere:#caa24a;        /* accent miere/chihlimbar */
+    --miere-2:#a8842f;
+    --text:#2a3320;
+    --text-soft:#5d6657;
+    --alb:#f7fbf7;          /* alb cu tentă verzuie pentru carduri */
+    --rosu:#a83232;
+    --radius:14px;
+    --shadow:0 6px 22px rgba(60,100,32,.10);
+    --font-titlu:'Caveat','Fraunces',Georgia,cursive;  /* cursiv de mână ca site-ul real */
+    --font-serif:'Fraunces',Georgia,serif;             /* serif pentru sub-titluri */
+    --font-corp:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-corp);
+    color:var(--text);
+    background:var(--crem);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* imagine de fundal fixă pe toată pagina + voal pentru lizibilitate */
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:url('bg.jpg') center center / cover no-repeat;
+    background-attachment:fixed;
+  }
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:linear-gradient(rgba(234,242,234,.38), rgba(234,242,234,.48));
+  }
+  h1,h2,h3{font-family:var(--font-titlu);font-weight:600;line-height:1.15;letter-spacing:-.01em}
+
+  /* ---------- bara promo (verde pal, ca site-ul real) ---------- */
+  .promo{background:var(--promo-bg);color:var(--verde-inchis);
+    display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
+    font-size:14px;padding:11px 16px;letter-spacing:.01em}
+  .promo .btn-promo{background:var(--verde);color:#fff;text-decoration:none;
+    padding:8px 18px;border-radius:7px;font-weight:600;font-size:13.5px;
+    transition:background .2s}
+  .promo .btn-promo:hover{background:var(--verde-2)}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:40;background:rgba(234,242,234,.94);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--crem-2)}
+
+  /* efect 3D pentru tot textul din header */
+  .nav .logo .txt b{
+    text-shadow:
+      1px 1px 0 #4a7a29,
+      2px 2px 0 #41691f,
+      3px 3px 0 #38591a,
+      4px 4px 0 #2f4a15,
+      5px 5px 8px rgba(0,0,0,.25);
+  }
+  .nav .logo .txt span{
+    text-shadow:1px 1px 0 rgba(61,100,32,.4), 2px 2px 2px rgba(0,0,0,.12);
+  }
+  .nav .menu a{
+    text-shadow:1px 1px 0 #c2d6b0, 2px 2px 0 #b0c79c, 3px 3px 4px rgba(0,0,0,.15);
+  }
+  .nav .menu a:hover{
+    text-shadow:1px 1px 0 #9cbf7e, 2px 2px 0 #8aad6c, 3px 3px 5px rgba(0,0,0,.2);
+  }
+  .nav .cart-btn{
+    text-shadow:1px 1px 0 rgba(0,0,0,.3), 2px 2px 3px rgba(0,0,0,.25);
+    box-shadow:0 3px 0 #3d6420, 0 5px 8px rgba(0,0,0,.2);
+  }
+  .nav .cart-btn:active{
+    transform:translateY(2px);
+    box-shadow:0 1px 0 #3d6420, 0 2px 4px rgba(0,0,0,.2);
+  }
+  .nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;padding:14px 24px;gap:18px}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .logo .mark{width:46px;height:46px;display:grid;place-items:center;flex-shrink:0}
+  .logo .mark svg{width:46px;height:46px}
+  .logo .txt b{font-family:var(--font-titlu);font-size:27px;font-weight:700;
+    display:block;line-height:.95;color:var(--verde)}
+  .logo .txt span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--verde-2);font-weight:600}
+  .menu{display:flex;gap:30px;list-style:none}
+  .menu a{text-decoration:none;color:var(--text);font-size:15px;font-weight:500;
+    position:relative;padding:4px 0;transition:color .2s}
+  .menu a:hover{color:var(--verde-2)}
+  .menu a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;
+    background:var(--miere);transition:width .25s}
+  .menu a:hover::after{width:100%}
+  .cart-btn{background:var(--verde);color:var(--crem);border:none;cursor:pointer;
+    border-radius:999px;padding:10px 18px;font-family:var(--font-corp);font-size:14px;
+    font-weight:600;display:flex;align-items:center;gap:8px;transition:background .2s}
+  .cart-btn:hover{background:var(--verde-2)}
+  .cart-btn .count{background:var(--miere);color:#fff;border-radius:999px;
+    min-width:20px;height:20px;font-size:12px;display:grid;place-items:center;padding:0 5px}
+
+  /* ---------- hero ---------- */
+  .hero{max-width:1180px;margin:0 auto;padding:62px 24px 30px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero .eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;
+    font-weight:700;margin-bottom:18px;
+    color:transparent;
+    background:linear-gradient(120deg,#ffffff 0%,#eafff0 30%,#ffffff 50%,#dff5ff 70%,#ffffff 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.8),
+      0 0 6px rgba(255,255,255,.85),
+      0 0 12px rgba(200,255,220,.55),
+      1px 2px 3px rgba(90,143,51,.35);
+    animation:holotext 4s linear infinite;}
+  .hero h1{font-size:clamp(42px,6.5vw,72px);color:var(--verde);margin-bottom:14px;
+    line-height:1;font-weight:700}
+  .hero h1 em{
+    font-style:normal;
+    color:transparent;
+    background:linear-gradient(120deg,#ffffff 0%,#eafff0 30%,#ffffff 50%,#dff5ff 70%,#ffffff 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-stroke:1px rgba(255,255,255,.9);
+    text-shadow:
+      0 0 6px rgba(255,255,255,.9),
+      0 0 14px rgba(200,255,220,.6),
+      0 0 22px rgba(160,220,255,.4),
+      0 2px 4px rgba(90,143,51,.3);
+    animation:holotext 4s linear infinite;
+  }
+  @keyframes holotext{0%{background-position:0% center}100%{background-position:200% center}}
+  .hero p{font-size:17px;color:var(--text);max-width:46ch;margin-bottom:28px;
+    text-shadow:0 1px 3px rgba(255,255,255,.7)}
+  .hero .cta{display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(135deg,#8cc63f 0%,#5a8f33 50%,#3d6420 100%);
+    color:#fff;text-decoration:none;padding:14px 26px;border-radius:999px;
+    font-weight:600;font-size:15.5px;
+    box-shadow:0 4px 14px rgba(61,100,32,.35);
+    transition:transform .15s,box-shadow .2s,filter .2s}
+  .hero .cta:hover{transform:translateY(-2px);
+    box-shadow:0 7px 20px rgba(61,100,32,.45);filter:brightness(1.08)}
+  .hero-art{position:relative;aspect-ratio:1;border-radius:28px;overflow:visible;
+    background:transparent;
+    display:grid;place-items:center}
+  .brandcard{text-align:center;padding:30px}
+  .brand-logo{width:230px;height:auto;
+    filter:
+      drop-shadow(0 0 2px #fff)
+      drop-shadow(0 0 4px #fff)
+      drop-shadow(0 0 9px rgba(255,255,255,.95))
+      drop-shadow(0 0 16px rgba(255,255,255,.7))
+      drop-shadow(0 10px 22px rgba(61,100,32,.35));
+    margin-bottom:14px;
+    animation:float 4s ease-in-out infinite, holo 3s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes holo{
+    0%,100%{filter:
+      drop-shadow(0 0 2px #fff)
+      drop-shadow(0 0 4px #fff)
+      drop-shadow(0 0 9px rgba(255,255,255,.9))
+      drop-shadow(0 0 16px rgba(200,255,220,.6))
+      drop-shadow(0 10px 22px rgba(61,100,32,.35))}
+    50%{filter:
+      drop-shadow(0 0 2px #fff)
+      drop-shadow(0 0 6px #fff)
+      drop-shadow(0 0 14px rgba(255,255,255,1))
+      drop-shadow(0 0 22px rgba(180,255,210,.9))
+      drop-shadow(0 0 30px rgba(150,220,255,.6))
+      drop-shadow(0 10px 22px rgba(61,100,32,.35))}
+  }
+  .brand-name{display:flex;justify-content:center;gap:3px;margin-bottom:10px}
+  .brand-name span{
+    font-family:var(--font-serif);
+    font-size:clamp(46px,7vw,70px);
+    font-weight:600;
+    line-height:1;
+    color:transparent;
+    -webkit-text-stroke:2px var(--verde-inchis);
+    text-stroke:2px var(--verde-inchis);
+    background:linear-gradient(135deg,#5a8f33 0%,#3d6420 45%,#2f4a15 70%,#6aa83c 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    text-shadow:0 2px 8px rgba(255,255,255,.6);
+    animation:shimmer 5s linear infinite;
+    background-size:200% auto;
+    transition:transform .25s;
+  }
+  @keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+  .brand-name span:hover{transform:translateY(-5px) scale(1.08)}
+  .brand-tag{font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--verde-2);font-weight:700;text-shadow:0 1px 3px rgba(255,255,255,.7)}
+
+  /* ---------- categorii ---------- */
+  .cats{max-width:1180px;margin:18px auto 0;padding:24px;display:grid;
+    grid-template-columns:repeat(4,1fr);gap:14px}
+  .cat{background:var(--alb);border:2px solid var(--verde);border-radius:8px;
+    padding:0;cursor:pointer;transition:transform .15s,box-shadow .2s,border-color .2s;
+    display:flex;align-items:flex-end;gap:0;aspect-ratio:3/4;position:relative;overflow:hidden}
+  .cat:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--verde-inchis)}
+  .cat.active{border-color:var(--verde-inchis);box-shadow:0 0 0 2px var(--verde-3)}
+  .cat .ico{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.92);
+    display:grid;place-items:center;color:var(--verde);flex-shrink:0;transition:.2s;
+    position:relative;z-index:2}
+  .cat.active .ico{background:#fff;color:var(--verde)}
+  .cat .ico svg{width:22px;height:22px}
+  .cat .cat-inner{display:flex;align-items:center;gap:12px;padding:16px;width:100%;
+    position:relative;z-index:2;
+    background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
+  .cat .cat-txt{position:relative;z-index:2}
+  .cat b{font-size:15.5px;font-weight:700;display:block;line-height:1.25;
+    text-shadow:0 1px 4px rgba(0,0,0,.7)}
+  .cat small{font-size:12.5px;opacity:.95;font-weight:600;
+    text-shadow:0 1px 4px rgba(0,0,0,.7)}
+  .cat[style*="url"] b{color:#fff}
+  .cat[style*="url"] small{color:#fff}
+
+  /* ---------- toolbar magazin ---------- */
+  .shop-head{max-width:1180px;margin:34px auto 0;padding:0 24px;
+    display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px}
+  .shop-head h2{font-size:46px;color:var(--verde);font-weight:700;line-height:1}
+  .shop-head p{color:var(--text-soft);font-size:14.5px;margin-top:3px}
+  .controls{display:flex;gap:10px;align-items:center}
+  .controls select{font-family:var(--font-corp);font-size:14px;padding:9px 14px;
+    border-radius:999px;border:1px solid var(--crem-2);background:var(--alb);
+    color:var(--text);cursor:pointer}
+
+  /* ---------- grid produse ---------- */
+  .grid{max-width:1180px;margin:22px auto 0;padding:0 24px 40px;display:block}
+  /* titlu secțiune categorie + buton adăugare */
+  .cat-section-head{display:flex;align-items:center;justify-content:space-between;
+    margin:30px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--verde-3)}
+  .cat-section-head h3{font-family:var(--font-serif);color:var(--verde);font-size:22px;font-weight:600}
+  .add-prod-btn{background:var(--verde);color:#fff;border:none;cursor:pointer;
+    padding:9px 16px;border-radius:8px;font-family:var(--font-corp);font-size:13.5px;
+    font-weight:600;transition:background .2s;display:none}
+  body.admin .add-prod-btn{display:inline-block}
+  .add-prod-btn:hover{background:var(--miere)}
+  .cat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .pimg{width:100%;height:100%;object-fit:cover;display:block}
+  /* buton schimbă poză (doar admin) */
+  .card .img-btn{position:absolute;bottom:10px;right:10px;z-index:3;background:var(--verde);
+    color:#fff;border:none;width:32px;height:32px;border-radius:8px;cursor:pointer;
+    display:none;align-items:center;justify-content:center}
+  body.admin .card .img-btn{display:flex}
+  body.admin .card .name,body.admin .card .price{cursor:pointer;
+    border-bottom:1px dashed var(--miere)}
+  .grid{max-width:1180px;margin:22px auto 0;padding:0 24px 40px}
+  .card{background:var(--verde-3);border:1px solid var(--crem-2);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;position:relative;
+    transition:transform .15s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .card .thumb{aspect-ratio:1;background:#fff;display:grid;place-items:center;
+    position:relative;overflow:hidden}
+  .card .thumb .ph{font-family:var(--font-serif);font-size:44px;color:var(--verde);
+    opacity:.38;font-weight:600}
+  .card .thumb .tag{position:absolute;top:11px;left:11px;background:var(--verde);
+    color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;
+    letter-spacing:.02em}
+  .card .rate{position:absolute;top:11px;right:11px;background:var(--miere);color:#fff;
+    font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:999px;display:flex;
+    align-items:center;gap:3px}
+  .card .body{padding:15px 16px 17px;display:flex;flex-direction:column;flex:1}
+  .card .name{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:auto;
+    color:var(--verde-inchis);min-height:40px}
+  .card .row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px}
+  .card .price{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--verde-inchis)}
+  .card .price small{font-size:13px;color:var(--text-soft);font-weight:400}
+  .card .add{background:var(--verde);color:#fff;border:none;cursor:pointer;
+    border-radius:10px;padding:9px 14px;font-family:var(--font-corp);font-size:13.5px;
+    font-weight:700;transition:background .2s,color .2s;white-space:nowrap}
+  .card .add:hover{background:var(--miere);color:#fff}
+
+  /* butoane admin pe card (ascunse implicit) */
+  .card .del{position:absolute;top:10px;right:10px;z-index:3;background:var(--rosu);
+    color:#fff;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;
+    display:none;align-items:center;justify-content:center}
+  body.admin .card .del{display:flex}
+  body.admin .card .rate{right:48px}
+  body.admin .card{border-style:dashed;border-color:var(--miere)}
+
+  /* ---------- zona admin add ---------- */
+  .admin-add{display:none}
+  body.admin .admin-add{display:none}
+  .admin-add .box{background:var(--verde);color:var(--crem);border-radius:var(--radius);
+    padding:20px 22px;margin-bottom:8px}
+  .admin-add h3{color:var(--miere);font-size:18px;margin-bottom:14px;display:flex;
+    align-items:center;gap:8px}
+  .admin-add .fields{display:grid;grid-template-columns:2fr 1fr 1.3fr auto;gap:10px;align-items:end}
+  .admin-add label{font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+    display:block;margin-bottom:5px;opacity:.8}
+  .admin-add input,.admin-add select{width:100%;padding:10px 12px;border-radius:9px;
+    border:none;font-family:var(--font-corp);font-size:14px;background:var(--crem);color:var(--text)}
+  .admin-add .save{background:var(--miere);color:#fff;border:none;cursor:pointer;
+    padding:11px 20px;border-radius:9px;font-weight:600;font-family:var(--font-corp);
+    font-size:14px;white-space:nowrap}
+  .admin-add .save:hover{background:#fff;color:var(--verde)}
+
+  .admin-bar{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+    z-index:60;background:var(--verde);color:var(--crem);border-radius:999px;
+    padding:9px 10px 9px 20px;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:14px}
+  body.admin .admin-bar{display:flex}
+  .admin-bar b{color:var(--miere)}
+  .admin-bar .exit{background:rgba(255,255,255,.15);color:var(--crem);border:none;
+    cursor:pointer;padding:7px 15px;border-radius:999px;font-weight:600;font-family:var(--font-corp)}
+  .admin-bar .exit:hover{background:rgba(255,255,255,.28)}
+
+  /* colț secret (invizibil) */
+  .secret{position:fixed;top:0;right:0;width:54px;height:54px;z-index:50;cursor:default}
+
+  /* ---------- PIN modal ---------- */
+  .modal-bg{display:none;position:fixed;inset:0;z-index:80;background:rgba(31,41,25,.55);
+    backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px}
+  .modal-bg.show{display:flex}
+  .pin-card{background:var(--crem);border-radius:20px;padding:34px 32px;width:100%;
+    max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .pin-card .lock{width:54px;height:54px;border-radius:50%;background:var(--verde);
+    color:var(--miere);display:grid;place-items:center;margin:0 auto 16px}
+  .pin-card h3{font-size:21px;color:var(--verde);margin-bottom:6px}
+  .pin-card p{font-size:13.5px;color:var(--text-soft);margin-bottom:20px}
+  .pin-inputs{display:flex;gap:10px;justify-content:center;margin-bottom:18px}
+  .pin-inputs input{width:52px;height:60px;text-align:center;font-size:26px;
+    font-family:var(--font-serif);font-weight:600;border:2px solid var(--crem-2);
+    border-radius:12px;background:var(--alb);color:var(--verde)}
+  .pin-inputs input:focus{outline:none;border-color:var(--miere)}
+  .pin-card .err{color:var(--rosu);font-size:13px;min-height:18px;margin-bottom:8px}
+  .pin-card .btns{display:flex;gap:10px}
+  .pin-card button{flex:1;padding:11px;border-radius:10px;font-family:var(--font-corp);
+    font-weight:600;font-size:14px;cursor:pointer;border:none}
+  .pin-card .ok{background:var(--verde);color:var(--crem)}
+  .pin-card .ok:hover{background:var(--verde-2)}
+  .pin-card .cancel{background:var(--crem-2);color:var(--text)}
+
+  /* ---------- coș drawer ---------- */
+  .drawer-bg{display:none;position:fixed;inset:0;z-index:70;background:rgba(31,41,25,.4)}
+  .drawer-bg.show{display:block}
+  .drawer{position:fixed;top:0;right:-440px;width:400px;max-width:92vw;height:100%;
+    background:var(--crem);z-index:75;transition:right .3s;display:flex;flex-direction:column;
+    box-shadow:-10px 0 40px rgba(0,0,0,.18)}
+  .drawer.show{right:0}
+  .drawer .dhead{padding:22px 24px;border-bottom:1px solid var(--crem-2);
+    display:flex;align-items:center;justify-content:between;gap:12px}
+  .drawer .dhead h3{font-size:21px;color:var(--verde);flex:1}
+  .drawer .dhead .x{background:none;border:none;cursor:pointer;font-size:24px;
+    color:var(--text-soft);width:32px;height:32px}
+  .drawer .items{flex:1;overflow-y:auto;padding:8px 24px}
+  .ditem{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--crem-2);align-items:center}
+  .ditem .ph{width:54px;height:54px;border-radius:10px;background:var(--crem-2);
+    display:grid;place-items:center;font-family:var(--font-serif);font-size:22px;
+    color:var(--verde);opacity:.5;flex-shrink:0}
+  .ditem .info{flex:1;min-width:0}
+  .ditem .info b{font-size:14px;font-weight:600;display:block;line-height:1.25}
+  .ditem .info span{font-size:13px;color:var(--text-soft)}
+  .ditem .qty{display:flex;align-items:center;gap:8px}
+  .ditem .qty button{width:26px;height:26px;border-radius:7px;border:1px solid var(--crem-2);
+    background:var(--alb);cursor:pointer;font-size:15px;color:var(--verde)}
+  .ditem .qty b{min-width:18px;text-align:center}
+  .empty{text-align:center;color:var(--text-soft);padding:50px 20px;font-size:14.5px}
+  .drawer .foot{padding:20px 24px;border-top:1px solid var(--crem-2)}
+  .drawer .foot .line{display:flex;justify-content:space-between;font-size:14px;
+    color:var(--text-soft);margin-bottom:7px}
+  .drawer .foot .total{display:flex;justify-content:space-between;font-size:19px;
+    font-weight:600;color:var(--verde);font-family:var(--font-serif);margin:10px 0 16px}
+  .drawer .foot .checkout{width:100%;background:var(--miere);color:#fff;border:none;
+    cursor:pointer;padding:14px;border-radius:11px;font-family:var(--font-corp);
+    font-weight:600;font-size:15.5px}
+  .drawer .foot .checkout:hover{background:var(--miere-2)}
+  .drawer .foot .note{font-size:12px;color:var(--text-soft);text-align:center;margin-top:9px}
+
+  /* toast */
+  .toast{position:fixed;bottom:24px;left:24px;z-index:90;background:var(--verde);
+    color:var(--crem);padding:13px 20px;border-radius:12px;font-size:14px;font-weight:500;
+    box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:.3s;display:flex;
+    align-items:center;gap:9px}
+  .toast.show{transform:translateY(0);opacity:1}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--verde-2);color:#fff;margin-top:40px;padding:50px 24px 26px}
+  .fwrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+  footer h4{font-family:var(--font-serif);color:#fff;font-size:18px;margin-bottom:14px;font-weight:600}
+  footer p,footer a{font-size:13.5px;color:rgba(255,255,255,.82);text-decoration:none;
+    display:block;margin-bottom:8px;line-height:1.5}
+  footer a:hover{color:#fff}
+  /* butoane ANPC SAL/SOL (stil oficial alb-albastru) */
+  .anpc{max-width:1180px;margin:30px auto 0;display:flex;gap:14px;flex-wrap:wrap;
+    justify-content:center}
+  .anpc-btn{display:flex;align-items:center;gap:12px;background:#fff;
+    border:2px solid #1b3a8c;border-radius:8px;padding:8px 14px;text-decoration:none;
+    min-width:250px;transition:transform .15s,box-shadow .2s}
+  .anpc-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)}
+  .anpc-btn .anpc-stamp{font-family:var(--font-serif);font-weight:700;font-size:15px;
+    color:#1b3a8c;border:2px solid #1b3a8c;border-radius:6px;padding:6px 8px;
+    letter-spacing:.02em;flex-shrink:0;line-height:1;margin:0}
+  .anpc-txt{flex:1;line-height:1.15}
+  .anpc-btn .anpc-txt b{display:block;font-size:11px;color:#1b3a8c;font-weight:700;
+    letter-spacing:.01em;margin:0}
+  .anpc-btn .anpc-txt span{font-size:11px;color:#1b3a8c;font-weight:600}
+  .anpc-cta{background:#1b3a8c;color:#fff;font-size:10px;font-weight:700;
+    padding:4px 9px;border-radius:4px;letter-spacing:.04em;flex-shrink:0}
+  .fbottom{max-width:1180px;margin:34px auto 0;padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.12);font-size:12.5px;color:rgba(246,243,234,.6);
+    text-align:center}
+
+  /* ===== BANNER COOKIES ===== */
+  .cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:85;background:var(--verde-inchis);
+    color:#fff;padding:16px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    justify-content:center;box-shadow:0 -4px 20px rgba(0,0,0,.2);transform:translateY(100%);
+    transition:transform .4s}
+  .cookie-bar.show{transform:translateY(0)}
+  .cookie-txt{font-size:13.5px;max-width:760px;line-height:1.5}
+  .cookie-txt a{color:var(--miere);text-decoration:underline}
+  .cookie-btns{display:flex;gap:10px;flex-shrink:0}
+  .cookie-bar button{border:none;cursor:pointer;padding:10px 20px;border-radius:8px;
+    font-family:var(--font-corp);font-weight:600;font-size:14px}
+  .ck-accept{background:var(--miere);color:#fff}
+  .ck-accept:hover{background:var(--miere-2)}
+  .ck-refuse{background:rgba(255,255,255,.18);color:#fff}
+  .ck-refuse:hover{background:rgba(255,255,255,.3)}
+
+  /* ===== WIDGET ACCESIBILITATE ===== */
+  .a11y-toggle{position:fixed;left:18px;bottom:18px;z-index:78;width:50px;height:50px;
+    border-radius:50%;background:var(--verde);color:#fff;border:none;cursor:pointer;
+    display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .15s}
+  .a11y-toggle:hover{transform:scale(1.08);background:var(--verde-2)}
+  .a11y-panel{position:fixed;left:18px;bottom:78px;z-index:79;background:#fff;
+    border-radius:14px;box-shadow:0 10px 36px rgba(0,0,0,.25);padding:12px;width:230px;
+    display:none;flex-direction:column;gap:6px}
+  .a11y-panel.show{display:flex}
+  .a11y-panel h4{font-family:var(--font-serif);color:var(--verde);font-size:15px;
+    margin:4px 6px 8px;font-weight:600}
+  .a11y-panel button{background:var(--crem);border:1px solid var(--crem-2);cursor:pointer;
+    padding:9px 12px;border-radius:8px;font-family:var(--font-corp);font-size:13.5px;
+    color:var(--text);text-align:left;transition:background .15s}
+  .a11y-panel button:hover{background:var(--verde-3)}
+
+  /* clase aplicate de widget */
+  body.a11y-contrast{filter:contrast(1.35) saturate(1.15)}
+  body.a11y-links a{text-decoration:underline !important;font-weight:700 !important}
+  body.a11y-nomotion *{animation:none !important;transition:none !important}
+
+  /* ===== MODAL POZĂ PRODUS ===== */
+  .img-modal-bg{display:none;position:fixed;inset:0;z-index:96;background:rgba(31,41,25,.55);
+    align-items:center;justify-content:center;padding:20px}
+  .img-modal-bg.show{display:flex}
+  .img-card{background:var(--crem);border-radius:18px;padding:30px;width:100%;max-width:420px}
+  .img-card h3{font-family:var(--font-serif);color:var(--verde);font-size:21px;margin-bottom:6px}
+  .img-card p{font-size:13.5px;color:var(--text-soft);margin-bottom:18px}
+  .img-card label{font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--text-soft);display:block;margin-bottom:6px;font-weight:600}
+  .img-card input[type=text]{width:100%;padding:11px 13px;border-radius:9px;
+    border:1px solid var(--crem-2);font-family:var(--font-corp);font-size:14px;background:#fff}
+  .img-or{text-align:center;color:var(--text-soft);font-size:13px;margin:14px 0}
+  .img-upload{display:block;background:var(--verde-3);border:1px dashed var(--verde);
+    border-radius:9px;padding:14px;text-align:center;cursor:pointer;color:var(--verde-inchis);
+    font-weight:600;font-size:14px;text-transform:none;letter-spacing:0}
+  .img-upload input{display:none}
+  .img-btns{display:flex;gap:8px;margin-top:20px}
+  .img-btns button{flex:1;padding:11px;border-radius:9px;border:none;cursor:pointer;
+    font-family:var(--font-corp);font-weight:600;font-size:13.5px}
+  .img-save{background:var(--verde);color:#fff}
+  .img-cancel{background:var(--crem-2);color:var(--text)}
+  .img-clear{background:#f3dede;color:var(--rosu)}
+
+  /* ===== MODAL POGINI LEGALE ===== */
+  .legal-bg{display:none;position:fixed;inset:0;z-index:90;background:rgba(31,41,25,.5)}
+  .legal-bg.show{display:block}
+  .legal-modal{position:fixed;top:0;right:-720px;width:680px;max-width:94vw;height:100%;
+    background:var(--crem);z-index:95;transition:right .35s;display:flex;flex-direction:column;
+    box-shadow:-12px 0 44px rgba(0,0,0,.22)}
+  .legal-modal.show{right:0}
+  .legal-x{position:absolute;top:16px;right:18px;background:none;border:none;font-size:30px;
+    cursor:pointer;color:var(--text-soft);width:40px;height:40px;line-height:1}
+  .legal-content{overflow-y:auto;padding:40px 38px}
+  .legal-content h2{font-family:var(--font-serif);color:var(--verde);font-size:26px;
+    margin-bottom:6px}
+  .legal-content .upd{font-size:12.5px;color:var(--text-soft);margin-bottom:22px}
+  .legal-content h3{font-family:var(--font-serif);color:var(--verde-inchis);font-size:17px;
+    margin:20px 0 8px}
+  .legal-content p{font-size:14px;line-height:1.65;margin-bottom:12px;color:var(--text)}
+  .legal-content ul{margin:0 0 12px 20px}
+  .legal-content li{font-size:14px;line-height:1.6;margin-bottom:6px}
+  .legal-content .todo{background:#fff5d6;color:#8a6d1a;padding:2px 6px;border-radius:4px;
+    font-weight:600;font-size:13px}
+
+  @media(max-width:920px){
+    .hero{grid-template-columns:1fr;padding-top:40px}
+    .hero-art{max-width:380px}
+    .cats{grid-template-columns:1fr 1fr}
+    .grid{grid-template-columns:1fr 1fr}
+    .menu{display:none}
+    .admin-add .fields{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:540px){
+    .grid{grid-template-columns:1fr 1fr;gap:13px}
+    .cats{grid-template-columns:1fr}
+    .card .name{min-height:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- colț secret: dublu-click aici deschide PIN -->
+<div class="secret" id="secret" title=""></div>
+
+<div class="promo">
+  <span>Transport gratuit la orice comandă peste 200 Lei!</span>
+  <a class="btn-promo" href="#magazin">Vizitează Magazinul Online</a>
+</div>
+
+<header>
+  <nav class="nav">
+    <a class="logo" href="#">
+      <span class="mark">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 42C24 42 7 31 7 18C7 12 11 8 16 8C19.5 8 22.5 10 24 13C25.5 10 28.5 8 32 8C37 8 41 12 41 18C41 31 24 42 24 42Z" fill="#8cc63f"/>
+          <path d="M24 41C24 41 9 30.5 9 18.5C9 13 12.5 9.5 17 9.5C20 9.5 22.7 11.4 24 14V41Z" fill="#5a8f33"/>
+          <path d="M24 14C25.3 11.4 28 9.5 31 9.5C35.5 9.5 39 13 39 18.5C39 30.5 24 41 24 41V14Z" fill="#a8d36a"/>
+          <path d="M24 38C24 30 24 22 24 15" stroke="#3d6420" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M24 22C21 20.5 18 20 16 20.5M24 26C21.5 24.5 19 24 17 24.5M24 19C26.5 17.5 29.5 17 31.5 17.5M24 24C27 22.5 30 22 32 22.5" stroke="#3d6420" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+        </svg>
+      </span>
+      <span class="txt"><b>VERDA</b><span>Magazin naturist</span></span>
+    </a>
+    <ul class="menu">
+      <li><a href="#magazin">Magazin</a></li>
+      <li><a href="#categorii">Categorii</a></li>
+      <li><a href="#">Despre noi</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="cart-btn" onclick="openCart()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+      Coș <span class="count" id="cartCount">0</span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Din inima naturii, pentru oameni</div>
+    <h1>Remedii <em>naturale</em> de la producători români</h1>
+    <p>Suplimente, cosmetice și produse apicole alese cu grijă — pure, locale și pline de viață. Pentru sănătatea ta și a celor dragi.</p>
+    <a class="cta" href="#magazin">
+      Vezi magazinul
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-art">
+    <div class="brandcard">
+      <svg class="brand-logo" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VERDA — inimă din frunză">
+  <defs>
+    <linearGradient id="verdaLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a8d36a"/>
+      <stop offset="35%" stop-color="#6aa83c"/>
+      <stop offset="65%" stop-color="#3d6420"/>
+      <stop offset="100%" stop-color="#8cc63f"/>
+      <animate attributeName="x1" values="0%;100%;0%" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="100%;200%;100%" dur="5s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(130,118)">
+    <path d="M0,128 C0,128 -126,44 -126,-42 C-126,-90 -89,-116 -52,-116 C-26,-116 -5,-100 0,-76 C5,-100 26,-116 52,-116 C89,-116 126,-90 126,-42 C126,44 0,128 0,128 Z"
+      fill="url(#verdaLeaf)" stroke="#ffffff" stroke-width="3.5"/>
+    <path d="M0,-76 L0,116" stroke="#2f4a15" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+    <path d="M0,-32 C-23,-44 -47,-46 -65,-42 M0,2 C-27,-12 -54,-14 -73,-10 M0,32 C-25,19 -52,19 -69,25
+      M0,-48 C21,-58 46,-60 63,-56 M0,-14 C25,-25 52,-27 71,-23 M0,20 C23,9 48,9 65,15"
+      stroke="#2f4a15" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.45"/>
+  </g>
+</svg>
+      <div class="brand-name">
+        <span>V</span><span>E</span><span>R</span><span>D</span><span>A</span>
+      </div>
+      <div class="brand-tag">Natural &amp; Românesc</div>
+    </div>
+  </div>
+</section>
+
+<section class="cats" id="categorii"></section>
+
+<div class="shop-head" id="magazin">
+  <div>
+    <h2>Magazinul VERDA</h2>
+    <p id="resultCount">Toate produsele</p>
+  </div>
+  <div class="controls">
+    <select id="sortSel" onchange="render()">
+      <option value="def">Sortare implicită</option>
+      <option value="price-asc">Preț crescător</option>
+      <option value="price-desc">Preț descrescător</option>
+      <option value="name">Alfabetic</option>
+    </select>
+  </div>
+</div>
+
+<!-- zona admin: adăugare produs (apare doar în mod editare) -->
+<div class="admin-add">
+  <div class="box">
+    <h3>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      Adaugă un produs nou
+    </h3>
+    <div class="fields">
+      <div><label>Denumire produs</label><input id="np-name" placeholder="ex. Miere de salcâm 500g"></div>
+      <div><label>Preț (lei)</label><input id="np-price" type="number" step="0.5" placeholder="29.00"></div>
+      <div><label>Categorie</label>
+        <select id="np-cat">
+          <option value="supl">Suplimente &amp; Remedii</option>
+          <option value="cosm">Cosmetice naturale</option>
+          <option value="apic">Produse apicole</option>
+          <option value="terap">Produse terapeutice</option>
+        </select>
+      </div>
+      <button class="save" onclick="addProduct()">Salvează produsul</button>
+    </div>
+  </div>
+</div>
+
+<section class="grid" id="grid"></section>
+
+<footer>
+  <div class="fwrap" id="contact">
+    <div>
+      <h4>VERDA</h4>
+      <p>Magazin naturist cu produse de la producători români.</p>
+      <p>SC Obrigado Cleaning SRL<br>
+      CUI: 40069329 · Reg. Com.: J20/1388/2018<br>
+      Sediu: Strada 1 Decembrie 1918 84, Petroșani</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:0722566118">(072) 256-6118</a>
+      <a href="mailto:info@naturelifebio.ro">info@naturelifebio.ro</a>
+      <p>L–V: 9:30–18:00 · S: 10:00–14:00</p>
+    </div>
+    <div>
+      <h4>Informații legale</h4>
+      <a href="#" onclick="openLegal('termeni');return false;">Termeni și condiții</a>
+      <a href="#" onclick="openLegal('confidentialitate');return false;">Politica de confidențialitate</a>
+      <a href="#" onclick="openLegal('cookies');return false;">Politica de cookies</a>
+      <a href="#" onclick="openLegal('retur');return false;">Politica de retur (14 zile)</a>
+      <a href="#" onclick="openLegal('livrare');return false;">Livrare și transport</a>
+      <a href="#" onclick="openLegal('accesibilitate');return false;">Declarație de accesibilitate</a>
+    </div>
+  </div>
+
+  <div class="anpc">
+    <a class="anpc-btn" href="https://anpc.ro/ce-este-sal/" target="_blank" rel="nofollow noopener">
+      <span class="anpc-stamp">ANPC</span>
+      <span class="anpc-txt"><b>SOLUȚIONAREA ALTERNATIVĂ</b><span>A LITIGIILOR</span></span>
+      <span class="anpc-cta">DETALII</span>
+    </a>
+    <a class="anpc-btn" href="https://ec.europa.eu/consumers/odr" target="_blank" rel="nofollow noopener">
+      <span class="anpc-stamp">UE</span>
+      <span class="anpc-txt"><b>SOLUȚIONAREA ONLINE</b><span>A LITIGIILOR</span></span>
+      <span class="anpc-cta">DETALII</span>
+    </a>
+  </div>
+
+  <div class="fbottom">© 2026 VERDA. Toate drepturile rezervate.</div>
+</footer>
+
+
+<!-- bara mod admin -->
+<div class="admin-bar">
+  <span>Mod editare activ — <b>poți adăuga și șterge produse</b></span>
+  <button class="exit" onclick="exitAdmin()">Ieși din editare</button>
+</div>
+
+<!-- PIN modal -->
+<div class="modal-bg" id="pinModal">
+  <div class="pin-card">
+    <div class="lock">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h3>Acces administrator</h3>
+    <p>Introdu codul PIN pentru a edita produsele.</p>
+    <div class="pin-inputs">
+      <input maxlength="1" inputmode="numeric" data-i="0">
+      <input maxlength="1" inputmode="numeric" data-i="1">
+      <input maxlength="1" inputmode="numeric" data-i="2">
+      <input maxlength="1" inputmode="numeric" data-i="3">
+    </div>
+    <div class="err" id="pinErr"></div>
+    <div class="btns">
+      <button class="cancel" onclick="closePin()">Anulează</button>
+      <button class="ok" onclick="checkPin()">Confirmă</button>
+    </div>
+  </div>
+</div>
+
+<!-- coș -->
+<div class="drawer-bg" id="drawerBg" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dhead">
+    <h3>Coșul tău</h3>
+    <button class="x" onclick="closeCart()">×</button>
+  </div>
+  <div class="items" id="cartItems"></div>
+  <div class="foot" id="cartFoot"></div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== BANNER COOKIES (GDPR) ===== -->
+<div class="cookie-bar" id="cookieBar">
+  <div class="cookie-txt">
+    Folosim cookie-uri pentru a-ți oferi cea mai bună experiență pe site. Cookie-urile esențiale sunt necesare pentru funcționare; cele opționale ne ajută să îmbunătățim site-ul. Vezi <a href="#" onclick="openLegal('cookies');return false;">Politica de cookies</a>.
+  </div>
+  <div class="cookie-btns">
+    <button class="ck-refuse" onclick="cookieChoice(false)">Refuz</button>
+    <button class="ck-accept" onclick="cookieChoice(true)">Accept toate</button>
+  </div>
+</div>
+
+<!-- ===== WIDGET ACCESIBILITATE (EAA) ===== -->
+<button class="a11y-toggle" id="a11yToggle" onclick="toggleA11y()" aria-label="Opțiuni de accesibilitate" title="Accesibilitate">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><path d="M19 13v-2a7 7 0 0 0-14 0v2M12 6v8m0 0-3 6m3-6 3 6"/></svg>
+</button>
+<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Opțiuni accesibilitate">
+  <h4>Accesibilitate</h4>
+  <button onclick="a11yFont(1)">A+ Mărește textul</button>
+  <button onclick="a11yFont(-1)">A− Micșorează textul</button>
+  <button onclick="a11yToggleClass('a11y-contrast')">◐ Contrast ridicat</button>
+  <button onclick="a11yToggleClass('a11y-links')">⎁ Evidențiază linkuri</button>
+  <button onclick="a11yToggleClass('a11y-nomotion')">⏸ Oprește animațiile</button>
+  <button onclick="a11yReset()">↺ Resetează</button>
+</div>
+
+<!-- ===== MODAL PAGINI LEGALE ===== -->
+<div class="legal-bg" id="legalBg" onclick="closeLegal()"></div>
+<aside class="legal-modal" id="legalModal" role="dialog" aria-label="Informații legale">
+  <button class="legal-x" onclick="closeLegal()" aria-label="Închide">×</button>
+  <div class="legal-content" id="legalContent"></div>
+</aside>
+
+<!-- ===== MODAL POZĂ PRODUS (admin) ===== -->
+<div class="img-modal-bg" id="imgModal">
+  <div class="img-card">
+    <h3>Adaugă poza produsului</h3>
+    <p>Lipește un link de imagine sau încarcă o poză de pe calculator.</p>
+    <label>Link imagine (URL)</label>
+    <input type="text" id="imgUrl" placeholder="https://...">
+    <div class="img-or">sau</div>
+    <label class="img-upload">
+      <input type="file" id="imgFile" accept="image/*" onchange="imgFromFile(this)">
+      📁 Încarcă o poză de pe calculator
+    </label>
+    <div class="img-btns">
+      <button class="img-cancel" onclick="closeImgModal()">Anulează</button>
+      <button class="img-clear" onclick="imgClear()">Șterge poza</button>
+      <button class="img-save" onclick="imgSave()">Salvează</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Catalog VERDA — 4 cartele șablon per categorie, prețuri la 0
+// cat: supl = Suplimente & Remedii | cosm = Cosmetice naturale | apic = Produse apicole | terap = Produse terapeutice
+// img: link sau date imagine (gol = se afișează inițiala). Se completează din modul de editare (PIN).
+const PRODUCTS = [
+  // Suplimente & Remedii
+  { uid: 1001, name: "Produs nou 1", price: 0, cat: "supl", img: "" },
+  { uid: 1002, name: "Produs nou 2", price: 0, cat: "supl", img: "" },
+  { uid: 1003, name: "Produs nou 3", price: 0, cat: "supl", img: "" },
+  { uid: 1004, name: "Produs nou 4", price: 0, cat: "supl", img: "" },
+  // Cosmetice naturale
+  { uid: 2001, name: "Produs nou 1", price: 0, cat: "cosm", img: "" },
+  { uid: 2002, name: "Produs nou 2", price: 0, cat: "cosm", img: "" },
+  { uid: 2003, name: "Produs nou 3", price: 0, cat: "cosm", img: "" },
+  { uid: 2004, name: "Produs nou 4", price: 0, cat: "cosm", img: "" },
+  // Produse apicole
+  { uid: 3001, name: "Produs nou 1", price: 0, cat: "apic", img: "" },
+  { uid: 3002, name: "Produs nou 2", price: 0, cat: "apic", img: "" },
+  { uid: 3003, name: "Produs nou 3", price: 0, cat: "apic", img: "" },
+  { uid: 3004, name: "Produs nou 4", price: 0, cat: "apic", img: "" },
+  // Produse terapeutice
+  { uid: 4001, name: "Produs nou 1", price: 0, cat: "terap", img: "" },
+  { uid: 4002, name: "Produs nou 2", price: 0, cat: "terap", img: "" },
+  { uid: 4003, name: "Produs nou 3", price: 0, cat: "terap", img: "" },
+  { uid: 4004, name: "Produs nou 4", price: 0, cat: "terap", img: "" },
+];
+
+</script>
+<script>
+/* ============ CONFIG ============ */
+const ADMIN_PIN = "3333";
+const FREE_SHIP = 200;
+const CAT_INFO = {
+  supl:  {label:"Suplimente & Remedii", bg:"cat-supl.jpg", ico:'<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'},
+  cosm:  {label:"Cosmetice naturale",   bg:"cat-cosm.jpg", ico:'<path d="M12 2v6M9 8h6l1 4a5 5 0 0 1-5 5 5 5 0 0 1-5-5l1-4Z"/><path d="M7 21h10"/>'},
+  apic:  {label:"Produse apicole",      bg:"cat-apic.jpg", ico:'<path d="M12 2 4 7v10l8 5 8-5V7l-8-5Z"/><path d="M12 7v10M8 9.5v5M16 9.5v5"/>'},
+  terap: {label:"Produse terapeutice",  bg:"cat-terap.jpg", ico:'<path d="M11 2v3M11 19v3M2 11h3M19 11h3"/><circle cx="11" cy="11" r="6"/>'},
+};
+const STORE_KEY = "nlb_products_v2";
+
+/* ============ STATE ============ */
+let products = loadProducts();
+let activeCat = null;
+let cart = {};
+
+function loadProducts(){
+  try{
+    const saved = localStorage.getItem(STORE_KEY);
+    if(saved) return JSON.parse(saved);
+  }catch(e){}
+  return PRODUCTS.map(p=>({...p}));
+}
+function saveProducts(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(products)); }catch(e){}
+}
+
+/* ============ RENDER CATEGORII ============ */
+function renderCats(){
+  const wrap = document.getElementById("categorii");
+  wrap.innerHTML = "";
+  Object.entries(CAT_INFO).forEach(([key,info])=>{
+    const n = products.filter(p=>p.cat===key).length;
+    const el = document.createElement("div");
+    el.className = "cat" + (activeCat===key?" active":"");
+    if(info.bg){
+      el.style.backgroundImage = `url('${info.bg}')`;
+      el.style.backgroundSize = "cover";
+      el.style.backgroundPosition = "center";
+    }
+    el.onclick = ()=>{ activeCat = activeCat===key?null:key; renderCats(); render(); };
+    el.innerHTML = `<div class="cat-inner">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${info.ico}</svg></div>
+      <div class="cat-txt"><b>${info.label}</b><small>${n} produse</small></div>
+      </div>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* ============ RENDER PRODUSE ============ */
+function render(){
+  const grid = document.getElementById("grid");
+  const sort = document.getElementById("sortSel").value;
+  // categoriile de afișat (toate, sau doar cea activă)
+  const cats = activeCat ? [activeCat] : Object.keys(CAT_INFO);
+
+  let total = products.filter(p=>!activeCat || p.cat===activeCat).length;
+  document.getElementById("resultCount").textContent =
+    `${total} ${total===1?"produs":"produse"}` + (activeCat?` · ${CAT_INFO[activeCat].label}`:" · toate categoriile");
+
+  grid.innerHTML = "";
+  cats.forEach(cat=>{
+    let list = products.filter(p=>p.cat===cat);
+    if(sort==="price-asc")  list.sort((a,b)=>a.price-b.price);
+    if(sort==="price-desc") list.sort((a,b)=>b.price-a.price);
+    if(sort==="name")       list.sort((a,b)=>a.name.localeCompare(b.name,"ro"));
+
+    // titlul secțiunii de categorie
+    const head = document.createElement("div");
+    head.className = "cat-section-head";
+    head.innerHTML = `<h3>${CAT_INFO[cat].label}</h3>
+      <button class="add-prod-btn" onclick="addProduct('${cat}')">+ Adaugă produs</button>`;
+    grid.appendChild(head);
+
+    // grila de produse a categoriei
+    const row = document.createElement("div");
+    row.className = "cat-row";
+    list.forEach(p=>{
+      const initial = (p.name.trim().charAt(0) || "?").toUpperCase();
+      const card = document.createElement("div");
+      card.className = "card";
+      const thumbInner = p.img
+        ? `<img class="pimg" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="ph" style="display:none">${initial}</span>`
+        : `<span class="ph">${initial}</span>`;
+      card.innerHTML = `
+        <div class="thumb">
+          <span class="tag">${CAT_INFO[p.cat].label.split(" ")[0]}</span>
+          ${p.rating?`<span class="rate">★ ${p.rating.toFixed(1)}</span>`:""}
+          ${thumbInner}
+          <button class="img-btn" title="Schimbă poza" onclick="editImage(${p.uid})">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          </button>
+          <button class="del" title="Șterge produsul" onclick="delProduct(${p.uid})">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          </button>
+        </div>
+        <div class="body">
+          <div class="name" onclick="editField(${p.uid},'name')">${p.name}</div>
+          <div class="row">
+            <div class="price" onclick="editField(${p.uid},'price')">${p.price.toFixed(2)}<small> lei</small></div>
+            <button class="add" onclick='addToCart(${JSON.stringify(p.name)}, ${p.price})'>În coș</button>
+          </div>
+        </div>`;
+      row.appendChild(card);
+    });
+    grid.appendChild(row);
+  });
+}
+function esc(s){return String(s).replace(/'/g,"\\'");}
+
+/* ============ ADMIN: add / edit / delete ============ */
+function addProduct(cat){
+  if(!document.body.classList.contains('admin')){
+    toast("Intră în modul editare pentru a adăuga produse");
+    return;
+  }
+  const prefix = {supl:1000,cosm:2000,apic:3000,terap:4000}[cat] || 5000;
+  const newUid = Date.now();
+  products.push({ uid:newUid, name:"Produs nou", price:0, cat, img:"" });
+  saveProducts();
+  renderCats(); render();
+  toast("Produs adăugat ✓ — apasă pe nume/preț ca să le editezi");
+}
+function editField(uid, field){
+  if(!document.body.classList.contains('admin')) return;
+  const p = products.find(x=>x.uid===uid); if(!p) return;
+  if(field==='name'){
+    const v = prompt("Denumirea produsului:", p.name);
+    if(v!==null && v.trim()){ p.name=v.trim(); saveProducts(); render(); }
+  }else if(field==='price'){
+    const v = prompt("Prețul (lei):", p.price);
+    if(v!==null){ const n=parseFloat(v); if(!isNaN(n)&&n>=0){ p.price=n; saveProducts(); render(); } }
+  }
+}
+function editImage(uid){
+  if(!document.body.classList.contains('admin')){
+    toast("Intră în modul editare pentru a schimba poza");
+    return;
+  }
+  imgTargetUid = uid;
+  document.getElementById('imgModal').classList.add('show');
+}
+function delProduct(uid){
+  if(!document.body.classList.contains('admin')){
+    toast("Intră în modul editare pentru a șterge produse");
+    return;
+  }
+  products = products.filter(p=>p.uid !== uid);
+  saveProducts();
+  renderCats(); render();
+  toast("Produs șters");
+}
+
+/* ============ MOD ADMIN ============ */
+let lastTap = 0;
+const secret = document.getElementById("secret");
+secret.addEventListener("dblclick", openPin);
+// suport touch: două atingeri rapide
+secret.addEventListener("touchend", e=>{
+  const now = Date.now();
+  if(now - lastTap < 350){ e.preventDefault(); openPin(); }
+  lastTap = now;
+});
+
+function openPin(){
+  document.getElementById("pinModal").classList.add("show");
+  document.getElementById("pinErr").textContent="";
+  const ins = document.querySelectorAll(".pin-inputs input");
+  ins.forEach(i=>i.value="");
+  ins[0].focus();
+}
+function closePin(){ document.getElementById("pinModal").classList.remove("show"); }
+function checkPin(){
+  const ins = document.querySelectorAll(".pin-inputs input");
+  const code = [...ins].map(i=>i.value).join("");
+  if(code === ADMIN_PIN){
+    document.body.classList.add("admin");
+    closePin();
+    toast("Mod editare activat");
+    window.scrollTo({top:document.querySelector('.admin-add').offsetTop-90, behavior:'smooth'});
+  }else{
+    document.getElementById("pinErr").textContent = "PIN greșit. Mai încearcă.";
+    ins.forEach(i=>i.value=""); ins[0].focus();
+  }
+}
+function exitAdmin(){ document.body.classList.remove("admin"); toast("Ai ieșit din editare"); }
+
+// navigare automată între cifrele PIN
+document.querySelectorAll(".pin-inputs input").forEach((inp,idx,arr)=>{
+  inp.addEventListener("input",()=>{
+    inp.value = inp.value.replace(/\D/g,"");
+    if(inp.value && idx<arr.length-1) arr[idx+1].focus();
+    if(idx===arr.length-1 && inp.value) checkPin();
+  });
+  inp.addEventListener("keydown",e=>{
+    if(e.key==="Backspace" && !inp.value && idx>0) arr[idx-1].focus();
+    if(e.key==="Enter") checkPin();
+  });
+});
+
+/* ============ COȘ ============ */
+function addToCart(name, price){
+  if(cart[name]) cart[name].qty++;
+  else cart[name] = {name, price, qty:1};
+  updateCart();
+  toast(name + " adăugat în coș ✓");
+}
+function changeQty(name, d){
+  if(!cart[name]) return;
+  cart[name].qty += d;
+  if(cart[name].qty<=0) delete cart[name];
+  updateCart();
+}
+function updateCart(){
+  const items = Object.values(cart);
+  const count = items.reduce((s,i)=>s+i.qty,0);
+  document.getElementById("cartCount").textContent = count;
+
+  const box = document.getElementById("cartItems");
+  if(items.length===0){
+    box.innerHTML = `<div class="empty">Coșul tău este gol.<br>Adaugă produse din magazin.</div>`;
+    document.getElementById("cartFoot").innerHTML = "";
+    return;
+  }
+  box.innerHTML = items.map(i=>`
+    <div class="ditem">
+      <div class="ph">${i.name.charAt(0).toUpperCase()}</div>
+      <div class="info"><b>${i.name}</b><span>${i.price.toFixed(2)} lei</span></div>
+      <div class="qty">
+        <button onclick='changeQty(${JSON.stringify(i.name)},-1)'>−</button>
+        <b>${i.qty}</b>
+        <button onclick='changeQty(${JSON.stringify(i.name)},1)'>+</button>
+      </div>
+    </div>`).join("");
+
+  const subtotal = items.reduce((s,i)=>s+i.price*i.qty,0);
+  const ship = subtotal>=FREE_SHIP || subtotal===0 ? 0 : 19;
+  const rest = Math.max(0, FREE_SHIP - subtotal);
+  document.getElementById("cartFoot").innerHTML = `
+    ${rest>0?`<div class="line">Încă <b style="color:var(--miere-2)">${rest.toFixed(2)} lei</b> până la transport gratuit</div>`:`<div class="line" style="color:var(--verde-2)">✓ Ai transport gratuit</div>`}
+    <div class="line"><span>Subtotal</span><span>${subtotal.toFixed(2)} lei</span></div>
+    <div class="line"><span>Transport</span><span>${ship===0?"Gratuit":ship.toFixed(2)+" lei"}</span></div>
+    <div class="total"><span>Total</span><span>${(subtotal+ship).toFixed(2)} lei</span></div>
+    <button class="checkout" onclick="checkout()">Finalizează comanda</button>
+    <div class="note">Plată la livrare sau online · Factură automată pe email</div>`;
+}
+function openCart(){ document.getElementById("drawer").classList.add("show");
+  document.getElementById("drawerBg").classList.add("show"); }
+function closeCart(){ document.getElementById("drawer").classList.remove("show");
+  document.getElementById("drawerBg").classList.remove("show"); }
+
+/* ============ CHECKOUT + HOOK FACTURARE ============ */
+function checkout(){
+  const items = Object.values(cart);
+  if(items.length===0){ toast("Coșul este gol"); return; }
+  const total = items.reduce((s,i)=>s+i.price*i.qty,0);
+
+  /* ===================================================================
+     >>> AICI SE CUPLEAZĂ FACTURAREA AUTOMATĂ (Oblio / SmartBill) <<<
+     Comanda e gata. La integrarea reală, aici trimitem datele
+     comenzii către serverul tău, care apelează API-ul de facturare
+     și emite factura fiscală automat, trimisă pe email clientului.
+
+     Exemplu (de activat când avem contul de facturare):
+     -------------------------------------------------------------------
+     fetch('/api/comanda', {
+       method:'POST',
+       headers:{'Content-Type':'application/json'},
+       body: JSON.stringify({
+         produse: items,
+         total: total,
+         client: { nume, email, telefon, adresa }  // din formular checkout
+       })
+     })
+     .then(r=>r.json())
+     .then(res=>{ // res.facturaUrl = link PDF factură });
+     ===================================================================*/
+
+  closeCart();
+  toast("Comandă plasată ✓ (demo) — factura se va emite automat");
+  cart = {}; updateCart();
+}
+
+/* ============ TOAST ============ */
+let toastT;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.classList.remove("show"), 2200);
+}
+
+/* ============ COOKIES (GDPR) ============ */
+function cookieChoice(accept){
+  try{ localStorage.setItem('nlb_cookies', accept?'all':'essential'); }catch(e){}
+  document.getElementById('cookieBar').classList.remove('show');
+  // aici se activează tracking-ul DOAR dacă accept===true (Google Analytics etc.)
+}
+function initCookies(){
+  let choice=null;
+  try{ choice=localStorage.getItem('nlb_cookies'); }catch(e){}
+  if(!choice){ setTimeout(()=>document.getElementById('cookieBar').classList.add('show'),800); }
+}
+
+/* ============ ACCESIBILITATE (EAA) ============ */
+let a11yFontStep=0;
+function toggleA11y(){ document.getElementById('a11yPanel').classList.toggle('show'); }
+function a11yFont(d){
+  a11yFontStep=Math.max(-2,Math.min(4,a11yFontStep+d));
+  document.documentElement.style.fontSize=(100+a11yFontStep*10)+'%';
+  saveA11y();
+}
+function a11yToggleClass(c){ document.body.classList.toggle(c); saveA11y(); }
+function a11yReset(){
+  a11yFontStep=0; document.documentElement.style.fontSize='';
+  document.body.classList.remove('a11y-contrast','a11y-links','a11y-nomotion');
+  try{ localStorage.removeItem('nlb_a11y'); }catch(e){}
+}
+function saveA11y(){
+  try{ localStorage.setItem('nlb_a11y', JSON.stringify({
+    f:a11yFontStep,
+    c:document.body.classList.contains('a11y-contrast'),
+    l:document.body.classList.contains('a11y-links'),
+    m:document.body.classList.contains('a11y-nomotion')
+  })); }catch(e){}
+}
+function initA11y(){
+  try{
+    const s=JSON.parse(localStorage.getItem('nlb_a11y'));
+    if(s){
+      a11yFontStep=s.f||0;
+      if(a11yFontStep) document.documentElement.style.fontSize=(100+a11yFontStep*10)+'%';
+      if(s.c) document.body.classList.add('a11y-contrast');
+      if(s.l) document.body.classList.add('a11y-links');
+      if(s.m) document.body.classList.add('a11y-nomotion');
+    }
+  }catch(e){}
+}
+
+/* ============ PAGINI LEGALE ============ */
+const FIRMA = "SC Obrigado Cleaning SRL";
+const LEGAL = {
+  termeni:{title:"Termeni și condiții", body:`
+    <p>Bine ai venit pe VERDA. Prin utilizarea acestui site și plasarea unei comenzi, ești de acord cu termenii de mai jos.</p>
+    <h3>1. Identificarea vânzătorului</h3>
+    <p>${FIRMA}, cu sediul în Strada 1 Decembrie 1918 84, Petroșani, înregistrată la Registrul Comerțului sub nr. J20/1388/2018, CUI 40069329.</p>
+    <h3>2. Produse și prețuri</h3>
+    <p>Prețurile sunt exprimate în lei și includ TVA. Ne rezervăm dreptul de a modifica prețurile fără notificare prealabilă. Imaginile produselor au caracter informativ.</p>
+    <h3>3. Comenzi</h3>
+    <p>Comanda se consideră fermă după confirmarea acesteia. Vânzătorul poate refuza o comandă în cazul indisponibilității produsului sau a datelor incomplete.</p>
+    <h3>4. Plată</h3>
+    <p>Plata se poate face la livrare (ramburs) sau online, conform opțiunilor afișate la finalizarea comenzii. Pentru fiecare comandă se emite factură fiscală.</p>
+    <h3>5. Accesibilitate</h3>
+    <p>Acest site respectă cerințele de accesibilitate conform Legii nr. 232/2022 (Directiva UE 2019/882), oferind opțiuni de mărire text, contrast ridicat și compatibilitate cu cititoare de ecran.</p>
+    <h3>6. Litigii</h3>
+    <p>Eventualele litigii pot fi soluționate pe cale amiabilă prin platformele SAL (anpc.ro/ce-este-sal) și SOL (ec.europa.eu/consumers/odr).</p>`},
+  confidentialitate:{title:"Politica de confidențialitate (GDPR)", body:`
+    <p>Protejăm datele tale conform Regulamentului (UE) 2016/679 (GDPR).</p>
+    <h3>Ce date colectăm</h3>
+    <ul><li>Nume, adresă, telefon, email — pentru procesarea comenzilor</li>
+    <li>Date de facturare — pentru emiterea facturii fiscale</li>
+    <li>Date de navigare (cookies) — doar cu acordul tău</li></ul>
+    <h3>Scopul prelucrării</h3>
+    <p>Datele sunt folosite exclusiv pentru onorarea comenzilor, facturare, livrare și comunicarea cu tine. Nu vindem datele tale către terți.</p>
+    <h3>Drepturile tale</h3>
+    <p>Ai dreptul de acces, rectificare, ștergere, restricționare și portabilitate a datelor. Pentru orice solicitare, scrie la <span class="todo">info@naturelifebio.ro</span>.</p>
+    <h3>Operator de date</h3>
+    <p>${FIRMA}. Poți depune plângere la ANSPDCP (dataprotection.ro).</p>`},
+  cookies:{title:"Politica de cookies", body:`
+    <p>Acest site folosește cookie-uri pentru a funcționa corect și pentru a-ți îmbunătăți experiența.</p>
+    <h3>Ce sunt cookie-urile</h3>
+    <p>Fișiere mici stocate în browserul tău, care ne ajută să reținem preferințele tale și să analizăm traficul.</p>
+    <h3>Tipuri de cookie-uri</h3>
+    <ul><li><b>Esențiale</b> — necesare pentru funcționarea coșului și a site-ului (nu pot fi dezactivate)</li>
+    <li><b>Analitice / opționale</b> — ne ajută să înțelegem cum este folosit site-ul (doar cu acordul tău)</li></ul>
+    <h3>Controlul cookie-urilor</h3>
+    <p>Poți accepta sau refuza cookie-urile opționale din banner. Le poți gestiona oricând și din setările browserului.</p>`},
+  retur:{title:"Politica de retur — dreptul de retragere (14 zile)", body:`
+    <p>Conform Directivei UE privind drepturile consumatorilor și OUG 34/2014, ai dreptul de a returna produsele în <b>14 zile calendaristice</b> de la primire, fără a fi necesară nicio justificare.</p>
+    <h3>Cum returnezi</h3>
+    <ul><li>Anunță-ne în 14 zile la <span class="todo">info@naturelifebio.ro</span></li>
+    <li>Returnează produsul în starea originală, nedeteriorat</li>
+    <li>Rambursarea se face în maximum 14 zile de la primirea returului</li></ul>
+    <h3>Excepții</h3>
+    <p>Dreptul de retragere NU se aplică produselor sigilate care nu pot fi returnate din motive de igienă și care au fost desigilate (ex. cosmetice deschise, suplimente desigilate), conform legii.</p>`},
+  livrare:{title:"Livrare și transport", body:`
+    <h3>Costuri</h3>
+    <p>Transport <b>gratuit</b> pentru comenzi peste 200 lei. Sub acest prag, costul transportului este afișat la finalizarea comenzii.</p>
+    <h3>Termene</h3>
+    <p>Livrarea se face în general în 2–4 zile lucrătoare prin curier, în funcție de disponibilitatea produselor și de localitate.</p>
+    <h3>Ridicare personală</h3>
+    <p>Poți ridica personal comanda de la sediul nostru: Strada 1 Decembrie 1918 84, Petroșani.</p>`},
+  accesibilitate:{title:"Declarație de accesibilitate", body:`
+    <p>VERDA se angajează să facă acest site accesibil tuturor utilizatorilor, în conformitate cu Legea nr. 232/2022 care transpune Directiva (UE) 2019/882 (European Accessibility Act).</p>
+    <h3>Măsuri implementate</h3>
+    <ul><li>Opțiuni de mărire / micșorare a textului</li>
+    <li>Mod de contrast ridicat</li>
+    <li>Evidențierea linkurilor</li>
+    <li>Opțiune de oprire a animațiilor</li>
+    <li>Texte alternative pentru imagini</li>
+    <li>Navigare compatibilă cu tastatura și cititoare de ecran</li></ul>
+    <h3>Standard de referință</h3>
+    <p>Ne ghidăm după standardul EN 301 549 și liniile directoare WCAG 2.1 nivel AA.</p>
+    <h3>Feedback</h3>
+    <p>Dacă întâmpini probleme de accesibilitate, te rugăm să ne scrii la <span class="todo">info@naturelifebio.ro</span> și vom remedia cât mai curând.</p>`}
+};
+function openLegal(key){
+  const data=LEGAL[key]; if(!data) return;
+  document.getElementById('legalContent').innerHTML=
+    `<h2>${data.title}</h2><div class="upd">Ultima actualizare: iunie 2026</div>${data.body}`;
+  document.getElementById('legalModal').classList.add('show');
+  document.getElementById('legalBg').classList.add('show');
+}
+function closeLegal(){
+  document.getElementById('legalModal').classList.remove('show');
+  document.getElementById('legalBg').classList.remove('show');
+}
+
+/* ============ POZĂ PRODUS (admin) ============ */
+let imgTargetUid = null;
+let imgPending = null;
+function imgFromFile(input){
+  const file = input.files[0];
+  if(!file) return;
+  if(file.size > 2*1024*1024){ toast("Poza e prea mare (max 2MB)"); return; }
+  const reader = new FileReader();
+  reader.onload = e=>{ imgPending = e.target.result; toast("Poză încărcată — apasă Salvează"); };
+  reader.readAsDataURL(file);
+}
+function imgSave(){
+  const p = products.find(x=>x.uid===imgTargetUid); if(!p){ closeImgModal(); return; }
+  const url = document.getElementById('imgUrl').value.trim();
+  if(imgPending){ p.img = imgPending; }
+  else if(url){ p.img = url; }
+  else { toast("Adaugă un link sau încarcă o poză"); return; }
+  saveProducts(); render(); closeImgModal();
+  toast("Poză salvată ✓");
+}
+function imgClear(){
+  const p = products.find(x=>x.uid===imgTargetUid);
+  if(p){ p.img=""; saveProducts(); render(); }
+  closeImgModal();
+  toast("Poză ștearsă");
+}
+function closeImgModal(){
+  document.getElementById('imgModal').classList.remove('show');
+  document.getElementById('imgUrl').value="";
+  document.getElementById('imgFile').value="";
+  imgPending=null; imgTargetUid=null;
+}
+
+/* ============ INIT ============ */
+renderCats();
+render();
+updateCart();
+initCookies();
+initA11y();
+</script>
+</body>
+</html>
