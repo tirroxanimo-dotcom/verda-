@@ -211,28 +211,47 @@
     color:var(--verde-2);font-weight:700;text-shadow:0 1px 3px rgba(255,255,255,.7)}
 
   /* ---------- categorii ---------- */
-  .cats{max-width:1180px;margin:18px auto 0;padding:24px;display:grid;
-    grid-template-columns:repeat(4,1fr);gap:14px}
-  .cat{background:var(--alb);border:2px solid var(--verde);border-radius:8px;
-    padding:0;cursor:pointer;transition:transform .15s,box-shadow .2s,border-color .2s;
-    display:flex;align-items:flex-end;gap:0;aspect-ratio:3/4;position:relative;overflow:hidden}
-  .cat:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--verde-inchis)}
-  .cat.active{border-color:var(--verde-inchis);box-shadow:0 0 0 2px var(--verde-3)}
-  .cat .ico{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.92);
-    display:grid;place-items:center;color:var(--verde);flex-shrink:0;transition:.2s;
-    position:relative;z-index:2}
-  .cat.active .ico{background:#fff;color:var(--verde)}
-  .cat .ico svg{width:22px;height:22px}
-  .cat .cat-inner{display:flex;align-items:center;gap:12px;padding:16px;width:100%;
-    position:relative;z-index:2;
-    background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
-  .cat .cat-txt{position:relative;z-index:2}
-  .cat b{font-size:15.5px;font-weight:700;display:block;line-height:1.25;
-    text-shadow:0 1px 4px rgba(0,0,0,.7)}
-  .cat small{font-size:12.5px;opacity:.95;font-weight:600;
-    text-shadow:0 1px 4px rgba(0,0,0,.7)}
-  .cat[style*="url"] b{color:#fff}
-  .cat[style*="url"] small{color:#fff}
+  .cats-title{max-width:1180px;margin:30px auto 0;padding:0 24px;text-align:center;
+    font-family:var(--font-titlu);color:var(--verde);font-size:34px;font-weight:700}
+  .cats{max-width:1180px;margin:42px auto 0;padding:24px;display:grid;
+    grid-template-columns:repeat(4,1fr);gap:24px}
+  /* card categorie: cerc cu poză sus + card alb + bară verde jos */
+  .cat{background:#fff;border:none;border-radius:20px;
+    padding:60px 0 0;cursor:pointer;
+    transition:transform .18s,box-shadow .22s;
+    display:flex;flex-direction:column;align-items:stretch;
+    position:relative;overflow:visible;
+    box-shadow:0 8px 26px rgba(60,100,32,.10);min-height:240px}
+  .cat:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(60,100,32,.18)}
+  /* cercul cu poza, ridicat peste card */
+  .cat .ico{position:absolute;top:-48px;left:50%;transform:translateX(-50%);
+    width:96px;height:96px;border-radius:50%;overflow:hidden;
+    background:#fff;border:5px solid var(--crem);
+    box-shadow:0 6px 18px rgba(60,100,32,.22);
+    flex-shrink:0;transition:transform .2s,box-shadow .2s;z-index:2}
+  .cat:hover .ico{transform:translateX(-50%) scale(1.06);
+    box-shadow:0 10px 24px rgba(60,100,32,.3)}
+  .cat.active .ico{border-color:var(--verde-3);
+    box-shadow:0 0 0 4px var(--verde-3),0 6px 18px rgba(60,100,32,.25)}
+  .cat .ico img{width:100%;height:100%;object-fit:cover;display:block}
+  /* fallback iconiță SVG dacă poza lipsește */
+  .cat .ico svg{width:38px;height:38px;color:var(--verde);margin:auto}
+  .cat .ico.is-icon{display:grid;place-items:center;background:var(--verde-3)}
+  /* spațiu gol în mijlocul cardului (zona albă) */
+  .cat .cat-inner{flex:1;display:flex;align-items:flex-end;
+    padding:0;width:100%}
+  /* bara verde de jos cu textul */
+  .cat .cat-txt{width:100%;margin:0 16px 16px;padding:18px 14px;
+    background:var(--verde-3);border-radius:14px;text-align:center;
+    transition:background .2s}
+  .cat:hover .cat-txt{background:#c2dcae}
+  .cat.active .cat-txt{background:var(--verde);}
+  .cat.active .cat-txt b,.cat.active .cat-txt small{color:#fff}
+  .cat.active .cat-txt small{background:rgba(255,255,255,.25)}
+  .cat b{font-size:16px;font-weight:700;display:block;line-height:1.25;
+    color:var(--verde-inchis);margin-bottom:8px}
+  .cat small{font-size:12.5px;font-weight:600;color:var(--verde-2);
+    background:#fff;padding:3px 12px;border-radius:999px;display:inline-block}
 
   /* ---------- toolbar magazin ---------- */
   .shop-head{max-width:1180px;margin:34px auto 0;padding:0 24px;
@@ -520,11 +539,12 @@
     .hero-art{max-width:300px;margin:0 auto}
     .brandcard{padding:14px}
     .brand-logo{width:170px}
-    .cats{grid-template-columns:1fr 1fr;padding:18px 16px;gap:11px}
-    .cat{aspect-ratio:1/1}
-    .cat .cat-inner{padding:11px;gap:8px}
-    .cat .ico{width:32px;height:32px}
-    .cat b{font-size:13px}
+    .cats{grid-template-columns:1fr 1fr;padding:18px 16px;gap:40px 16px;margin-top:60px}
+    .cats-title{font-size:26px}
+    .cat{min-height:200px;padding-top:52px}
+    .cat .ico{width:80px;height:80px;top:-42px}
+    .cat .cat-txt{margin:0 12px 12px;padding:14px 10px}
+    .cat b{font-size:14px}
     .cat small{font-size:11px}
     .shop-head{padding:0 16px}
     .shop-head h2{font-size:34px}
@@ -622,6 +642,7 @@
   </div>
 </section>
 
+<h2 class="cats-title">Descoperă categoriile VERDA</h2>
 <section class="cats" id="categorii"></section>
 
 <div class="shop-head" id="magazin">
@@ -864,15 +885,14 @@ function renderCats(){
     const n = products.filter(p=>p.cat===key).length;
     const el = document.createElement("div");
     el.className = "cat" + (activeCat===key?" active":"");
-    if(info.bg){
-      el.style.backgroundImage = `url('${info.bg}')`;
-      el.style.backgroundSize = "cover";
-      el.style.backgroundPosition = "center";
-    }
     el.onclick = ()=>{ activeCat = activeCat===key?null:key; renderCats(); render(); };
-    el.innerHTML = `<div class="cat-inner">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${info.ico}</svg></div>
-      <div class="cat-txt"><b>${info.label}</b><small>${n} produse</small></div>
+    // cercul de sus: poza categoriei, cu fallback la iconiță dacă lipsește
+    const circle = info.bg
+      ? `<div class="ico"><img src="${info.bg}" alt="${info.label}" onerror="this.parentElement.classList.add('is-icon');this.outerHTML='<svg viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'2\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'>${info.ico.replace(/"/g,"\\'")}</svg>'"></div>`
+      : `<div class="ico is-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${info.ico}</svg></div>`;
+    el.innerHTML = `${circle}
+      <div class="cat-inner">
+        <div class="cat-txt"><b>${info.label}</b><small>${n} produse</small></div>
       </div>`;
     wrap.appendChild(el);
   });
