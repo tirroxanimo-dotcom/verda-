@@ -596,23 +596,23 @@
     <div class="brandcard">
       <svg class="brand-logo" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VERDA — inimă din frunză">
   <defs>
-    <linearGradient id="verdaLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#a8d36a"/>
-      <stop offset="35%" stop-color="#6aa83c"/>
-      <stop offset="65%" stop-color="#3d6420"/>
-      <stop offset="100%" stop-color="#8cc63f"/>
-      <animate attributeName="x1" values="0%;100%;0%" dur="5s" repeatCount="indefinite"/>
-      <animate attributeName="x2" values="100%;200%;100%" dur="5s" repeatCount="indefinite"/>
-    </linearGradient>
+    <clipPath id="verdaHeartClip">
+      <path d="M130,236 C130,236 8,154 8,70 C8,24 44,-1 80,-1 C105,-1 125,15 130,38 C135,15 155,-1 180,-1 C216,-1 252,24 252,70 C252,154 130,236 130,236 Z"/>
+    </clipPath>
   </defs>
-  <g transform="translate(130,118)">
-    <path d="M0,128 C0,128 -126,44 -126,-42 C-126,-90 -89,-116 -52,-116 C-26,-116 -5,-100 0,-76 C5,-100 26,-116 52,-116 C89,-116 126,-90 126,-42 C126,44 0,128 0,128 Z"
-      fill="url(#verdaLeaf)" stroke="#ffffff" stroke-width="3.5"/>
-    <path d="M0,-76 L0,116" stroke="#2f4a15" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-    <path d="M0,-32 C-23,-44 -47,-46 -65,-42 M0,2 C-27,-12 -54,-14 -73,-10 M0,32 C-25,19 -52,19 -69,25
-      M0,-48 C21,-58 46,-60 63,-56 M0,-14 C25,-25 52,-27 71,-23 M0,20 C23,9 48,9 65,15"
-      stroke="#2f4a15" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <path d="M130,236 C130,236 8,154 8,70 C8,24 44,-1 80,-1 C105,-1 125,15 130,38 C135,15 155,-1 180,-1 C216,-1 252,24 252,70 C252,154 130,236 130,236 Z"
+    fill="#7cb342" stroke="#ffffff" stroke-width="4"/>
+  <g clip-path="url(#verdaHeartClip)">
+    <rect x="0" y="-10" width="130" height="260" fill="#4e8a2c"/>
+    <rect x="130" y="-10" width="130" height="260" fill="#9ccc5a"/>
   </g>
+  <path d="M130,236 C130,236 8,154 8,70 C8,24 44,-1 80,-1 C105,-1 125,15 130,38 C135,15 155,-1 180,-1 C216,-1 252,24 252,70 C252,154 130,236 130,236 Z"
+    fill="none" stroke="#ffffff" stroke-width="4"/>
+  <path d="M130,38 L130,224" stroke="#33571c" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M130,80 C108,68 84,66 67,70 M130,116 C105,104 78,102 59,106 M130,150 C107,138 81,138 64,144"
+    stroke="#33571c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M130,64 C151,54 176,52 192,56 M130,98 C155,87 181,85 200,89 M130,134 C153,123 178,123 195,129"
+    stroke="#5a8f33" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
 </svg>
       <div class="brand-name">
         <span>V</span><span>E</span><span>R</span><span>D</span><span>A</span>
