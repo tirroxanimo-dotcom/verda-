@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VERDA — Magazin naturist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"></noscript>
 <style>
   :root{
     --verde:#5a8f33;        /* verde viu / iarbă — ca site-ul real */
@@ -25,7 +29,7 @@
     --font-serif:'Fraunces',Georgia,serif;             /* serif pentru sub-titluri */
     --font-corp:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   }
-  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+  /* fonturile sunt încărcate în <head> cu preload (neblocant) */
 
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -36,14 +40,15 @@
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  /* imagine de fundal fixă pe toată pagina + voal pentru lizibilitate */
+  /* imagine de fundal pe toată pagina + voal pentru lizibilitate */
   body::before{
     content:'';
     position:fixed;
     inset:0;
     z-index:-2;
     background:url('bg.jpg') center center / cover no-repeat;
-    background-attachment:fixed;
+    /* fără background-attachment:fixed — elementul e deja fixed, deci e redundant
+       și îngreuna mult scroll-ul pe telefon */
   }
   body::after{
     content:'';
@@ -302,43 +307,43 @@
   .card .name{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:auto;
     color:var(--verde-inchis);min-height:40px}
   .card .row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px}
+  .card .prices{display:flex;flex-direction:column;line-height:1}
   .card .price{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--verde-inchis)}
   .card .price small{font-size:13px;color:var(--text-soft);font-weight:400}
+  .card .oldprice{font-size:13.5px;color:var(--text-soft);text-decoration:line-through;
+    font-weight:500;margin-bottom:2px}
   .card .add{background:var(--verde);color:#fff;border:none;cursor:pointer;
     border-radius:10px;padding:9px 14px;font-family:var(--font-corp);font-size:13.5px;
     font-weight:700;transition:background .2s,color .2s;white-space:nowrap}
   .card .add:hover{background:var(--miere);color:#fff}
+  /* badge reducere (apare când există preț vechi) */
+  .card .sale{position:absolute;top:11px;left:11px;background:var(--rosu);color:#fff;
+    font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;z-index:2}
 
-  /* butoane admin pe card (ascunse implicit) */
-  .card .del{position:absolute;top:10px;right:10px;z-index:3;background:var(--rosu);
-    color:#fff;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;
-    display:none;align-items:center;justify-content:center}
-  body.admin .card .del{display:flex}
-  body.admin .card .rate{right:48px}
-  body.admin .card{border-style:dashed;border-color:var(--miere)}
+  /* colțul de editare din dreapta-sus al cardului (vizibil doar în admin) */
+  /* colțul de editare e mereu prezent, dar discret până intri în admin */
+  .card .edit-corner{position:absolute;top:0;right:0;width:46px;height:46px;z-index:4;
+    cursor:pointer;display:block;background:transparent}
+  /* colțul rămâne complet invizibil — funcția e păstrată, doar cine știe că e acolo îl folosește */
+  body.admin .card .edit-corner{background:transparent}
+  body.admin .card .thumb{cursor:default}
 
-  /* ---------- zona admin add ---------- */
-  .admin-add{display:none}
-  body.admin .admin-add{display:none}
-  .admin-add .box{background:var(--verde);color:var(--crem);border-radius:var(--radius);
-    padding:20px 22px;margin-bottom:8px}
-  .admin-add h3{color:var(--miere);font-size:18px;margin-bottom:14px;display:flex;
-    align-items:center;gap:8px}
-  .admin-add .fields{display:grid;grid-template-columns:2fr 1fr 1.3fr auto;gap:10px;align-items:end}
-  .admin-add label{font-size:12px;letter-spacing:.04em;text-transform:uppercase;
-    display:block;margin-bottom:5px;opacity:.8}
-  .admin-add input,.admin-add select{width:100%;padding:10px 12px;border-radius:9px;
-    border:none;font-family:var(--font-corp);font-size:14px;background:var(--crem);color:var(--text)}
-  .admin-add .save{background:var(--miere);color:#fff;border:none;cursor:pointer;
-    padding:11px 20px;border-radius:9px;font-weight:600;font-family:var(--font-corp);
-    font-size:14px;white-space:nowrap}
-  .admin-add .save:hover{background:#fff;color:var(--verde)}
-
+  /* ---------- zona admin add (nefolosită — păstrată ascunsă) ---------- */
+  .admin-add{display:none !important}
   .admin-bar{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
     z-index:60;background:var(--verde);color:var(--crem);border-radius:999px;
-    padding:9px 10px 9px 20px;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:14px}
+    padding:9px 10px 9px 20px;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);
+    font-size:14px;max-width:94vw;flex-wrap:wrap;justify-content:center}
   body.admin .admin-bar{display:flex}
   .admin-bar b{color:var(--miere)}
+  .admin-bar .dl{background:var(--miere);color:#fff;border:none;cursor:pointer;
+    padding:7px 16px;border-radius:999px;font-weight:600;font-family:var(--font-corp);
+    font-size:13.5px;white-space:nowrap}
+  .admin-bar .dl:hover{background:var(--miere-2)}
+  .admin-bar .reset{background:rgba(255,255,255,.15);color:var(--crem);border:none;
+    cursor:pointer;padding:7px 14px;border-radius:999px;font-weight:600;
+    font-family:var(--font-corp);font-size:13px;white-space:nowrap}
+  .admin-bar .reset:hover{background:rgba(255,255,255,.28)}
   .admin-bar .exit{background:rgba(255,255,255,.15);color:var(--crem);border:none;
     cursor:pointer;padding:7px 15px;border-radius:999px;font-weight:600;font-family:var(--font-corp)}
   .admin-bar .exit:hover{background:rgba(255,255,255,.28)}
@@ -476,28 +481,58 @@
   body.a11y-links a{text-decoration:underline !important;font-weight:700 !important}
   body.a11y-nomotion *{animation:none !important;transition:none !important}
 
-  /* ===== MODAL POZĂ PRODUS ===== */
+  /* ===== MODAL EDITARE PRODUS (ca tirea.ro/proba) ===== */
   .img-modal-bg{display:none;position:fixed;inset:0;z-index:96;background:rgba(31,41,25,.55);
-    align-items:center;justify-content:center;padding:20px}
+    backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:20px}
   .img-modal-bg.show{display:flex}
-  .img-card{background:var(--crem);border-radius:18px;padding:30px;width:100%;max-width:420px}
-  .img-card h3{font-family:var(--font-serif);color:var(--verde);font-size:21px;margin-bottom:6px}
-  .img-card p{font-size:13.5px;color:var(--text-soft);margin-bottom:18px}
+  .img-card{background:var(--crem);border-radius:20px;padding:26px;width:100%;max-width:430px;
+    max-height:92vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+  .img-card .ed-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .img-card h3{font-family:var(--font-serif);color:var(--verde);font-size:21px}
+  .img-card .ed-x{background:none;border:none;font-size:26px;cursor:pointer;color:var(--text-soft);
+    width:34px;height:34px;line-height:1}
+  /* previzualizare poză */
+  .ed-preview{width:100%;aspect-ratio:16/10;border-radius:12px;background:#fff;
+    border:1px solid var(--crem-2);overflow:hidden;display:grid;place-items:center;margin-bottom:14px}
+  .ed-preview img{width:100%;height:100%;object-fit:cover}
+  .ed-preview .ed-ph{font-family:var(--font-serif);font-size:46px;color:var(--verde);opacity:.35}
   .img-card label{font-size:12px;letter-spacing:.04em;text-transform:uppercase;
-    color:var(--text-soft);display:block;margin-bottom:6px;font-weight:600}
-  .img-card input[type=text]{width:100%;padding:11px 13px;border-radius:9px;
-    border:1px solid var(--crem-2);font-family:var(--font-corp);font-size:14px;background:#fff}
-  .img-or{text-align:center;color:var(--text-soft);font-size:13px;margin:14px 0}
+    color:var(--text-soft);display:block;margin:12px 0 6px;font-weight:600}
+  .img-card input[type=text],.img-card input[type=number]{width:100%;padding:11px 13px;
+    border-radius:9px;border:1px solid var(--crem-2);font-family:var(--font-corp);
+    font-size:14px;background:#fff;color:var(--text)}
+  .ed-prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .img-photo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
   .img-upload{display:block;background:var(--verde-3);border:1px dashed var(--verde);
-    border-radius:9px;padding:14px;text-align:center;cursor:pointer;color:var(--verde-inchis);
-    font-weight:600;font-size:14px;text-transform:none;letter-spacing:0}
+    border-radius:9px;padding:12px;text-align:center;cursor:pointer;color:var(--verde-inchis);
+    font-weight:600;font-size:13.5px;text-transform:none;letter-spacing:0;margin-top:0}
+  .img-upload:hover{background:#bcd8a6}
+  .img-camera{background:#e6f0fb;border-color:#3b7dd8;color:#1f4f8f;
+    font-family:var(--font-corp)}
+  .img-camera:hover{background:#d4e6f8}
   .img-upload input{display:none}
-  .img-btns{display:flex;gap:8px;margin-top:20px}
-  .img-btns button{flex:1;padding:11px;border-radius:9px;border:none;cursor:pointer;
-    font-family:var(--font-corp);font-weight:600;font-size:13.5px}
+  /* zona camerei live */
+  .cam-box{display:none;margin:6px 0 4px}
+  .cam-box.show{display:block}
+  .cam-box video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;
+    background:#000;display:block}
+  .cam-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .cam-shot{background:var(--verde);color:#fff;border:none;cursor:pointer;padding:12px;
+    border-radius:10px;font-weight:700;font-family:var(--font-corp);font-size:14px}
+  .cam-shot:hover{background:var(--verde-2)}
+  .cam-cancel{background:var(--crem-2);color:var(--text);border:none;cursor:pointer;padding:12px;
+    border-radius:10px;font-weight:600;font-family:var(--font-corp);font-size:14px}
+  .img-or{text-align:center;color:var(--text-soft);font-size:12.5px;margin:8px 0}
+  .img-btns{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+  .img-btns button{width:100%;padding:12px;border-radius:10px;border:none;cursor:pointer;
+    font-family:var(--font-corp);font-weight:600;font-size:14px}
   .img-save{background:var(--verde);color:#fff}
-  .img-cancel{background:var(--crem-2);color:var(--text)}
+  .img-save:hover{background:var(--verde-2)}
+  .img-tiktok{background:#111;color:#fff}
+  .img-tiktok:hover{background:#000}
   .img-clear{background:#f3dede;color:var(--rosu)}
+  .img-del{background:var(--rosu);color:#fff}
+  .img-del:hover{filter:brightness(.92)}
 
   /* ===== MODAL POGINI LEGALE ===== */
   .legal-bg{display:none;position:fixed;inset:0;z-index:90;background:rgba(31,41,25,.5)}
@@ -567,11 +602,10 @@
 </head>
 <body>
 
-<!-- colț secret: dublu-click aici deschide PIN -->
+<!-- colț secret: dublu-click aici activează modul editare (util și când nu ai produse) -->
 <div class="secret" id="secret" title=""></div>
 
 <div class="promo">
-  <span>Transport gratuit la orice comandă peste 200 Lei!</span>
   <a class="btn-promo" href="#magazin">Vizitează Magazinul Online</a>
 </div>
 
@@ -728,10 +762,10 @@
 </footer>
 
 
-<!-- bara mod admin -->
+<!-- bara mod admin: doar buton mic de ieșire (salvarea se face automat din modal) -->
 <div class="admin-bar">
-  <span>Mod editare activ — <b>poți adăuga și șterge produse</b></span>
-  <button class="exit" onclick="exitAdmin()">Ieși din editare</button>
+  <span>Mod editare</span>
+  <button class="exit" onclick="exitAdmin()">Ieși</button>
 </div>
 
 <!-- PIN modal -->
@@ -801,53 +835,92 @@
   <div class="legal-content" id="legalContent"></div>
 </aside>
 
-<!-- ===== MODAL POZĂ PRODUS (admin) ===== -->
-<div class="img-modal-bg" id="imgModal">
+<!-- ===== MODAL EDITARE PRODUS (dublu-click pe colțul cardului) ===== -->
+<div class="img-modal-bg" id="imgModal" onclick="if(event.target===this)closeImgModal()">
   <div class="img-card">
-    <h3>Adaugă poza produsului</h3>
-    <p>Lipește un link de imagine sau încarcă o poză de pe calculator.</p>
-    <label>Link imagine (URL)</label>
-    <input type="text" id="imgUrl" placeholder="https://...">
-    <div class="img-or">sau</div>
-    <label class="img-upload">
-      <input type="file" id="imgFile" accept="image/*" onchange="imgFromFile(this)">
-      📁 Încarcă o poză de pe calculator
-    </label>
+    <div class="ed-head">
+      <h3>✏️ Editează produs</h3>
+      <button class="ed-x" onclick="closeImgModal()" aria-label="Închide">×</button>
+    </div>
+
+    <!-- previzualizare poză -->
+    <div class="ed-preview" id="edPreview"><span class="ed-ph">?</span></div>
+
+    <!-- zona camerei live (ascunsă până apeși Fă o poză) -->
+    <div class="cam-box" id="camBox">
+      <video id="camVideo" autoplay playsinline></video>
+      <div class="cam-controls">
+        <button type="button" class="cam-shot" onclick="camCapture()">📸 Capturează</button>
+        <button type="button" class="cam-cancel" onclick="camStop()">✕ Renunță</button>
+      </div>
+    </div>
+
+    <div class="img-photo-row">
+      <label class="img-upload">
+        <input type="file" id="imgFile" accept="image/*" onchange="imgFromFile(this)">
+        📷 Alege o poză
+      </label>
+      <button type="button" class="img-upload img-camera" onclick="camStart()">
+        📸 Fă o poză acum
+      </button>
+    </div>
+    <div class="img-or">sau lipește un link</div>
+    <input type="text" id="imgUrl" placeholder="https://..." oninput="edPreviewUrl(this.value)">
+
+    <label>Numele produsului</label>
+    <input type="text" id="edName" placeholder="ex. Miere de salcâm 500g">
+
+    <div class="ed-prices">
+      <div>
+        <label>Preț (lei)</label>
+        <input type="number" id="edPrice" step="0.5" min="0" placeholder="29">
+      </div>
+      <div>
+        <label>Preț vechi (opțional)</label>
+        <input type="number" id="edOld" step="0.5" min="0" placeholder="39">
+      </div>
+    </div>
+
     <div class="img-btns">
-      <button class="img-cancel" onclick="closeImgModal()">Anulează</button>
-      <button class="img-clear" onclick="imgClear()">Șterge poza</button>
-      <button class="img-save" onclick="imgSave()">Salvează</button>
+      <button class="img-save" onclick="imgSave()">✓ Salvează</button>
+      <button class="img-tiktok" onclick="tiktokAction()">🎵 Link pentru TikTok</button>
+      <button class="img-del" onclick="delFromModal()">🗑️ Șterge produsul</button>
+      <button class="img-clear" onclick="imgClear()">Șterge doar poza</button>
     </div>
   </div>
 </div>
 
+<!-- ===================================================================
+     CATALOGUL MAGAZINULUI — direct aici în pagină
+     -------------------------------------------------------------------
+     Fiecare categorie are 4 carduri șablon. Ca să le editezi:
+     DUBLU-CLICK pe colțul auriu din dreapta-sus al cardului → PIN 3333
+     → schimbi poza, numele și prețul. Poți adăuga sau șterge carduri.
+     cat: supl=Suplimente | cosm=Cosmetice | apic=Apicole | terap=Terapeutice
+     =================================================================== -->
 <script>
-// Catalog VERDA — 4 cartele șablon per categorie, prețuri la 0
-// cat: supl = Suplimente & Remedii | cosm = Cosmetice naturale | apic = Produse apicole | terap = Produse terapeutice
-// img: link sau date imagine (gol = se afișează inițiala). Se completează din modul de editare (PIN).
-const PRODUCTS = [
+window.PRODUCTS = [
   // Suplimente & Remedii
-  { uid: 1001, name: "Produs nou 1", price: 0, cat: "supl", img: "" },
-  { uid: 1002, name: "Produs nou 2", price: 0, cat: "supl", img: "" },
-  { uid: 1003, name: "Produs nou 3", price: 0, cat: "supl", img: "" },
-  { uid: 1004, name: "Produs nou 4", price: 0, cat: "supl", img: "" },
+  { uid: 1001, name: "Produs nou 1", price: 0, oldprice: 0, cat: "supl", img: "" },
+  { uid: 1002, name: "Produs nou 2", price: 0, oldprice: 0, cat: "supl", img: "" },
+  { uid: 1003, name: "Produs nou 3", price: 0, oldprice: 0, cat: "supl", img: "" },
+  { uid: 1004, name: "Produs nou 4", price: 0, oldprice: 0, cat: "supl", img: "" },
   // Cosmetice naturale
-  { uid: 2001, name: "Produs nou 1", price: 0, cat: "cosm", img: "" },
-  { uid: 2002, name: "Produs nou 2", price: 0, cat: "cosm", img: "" },
-  { uid: 2003, name: "Produs nou 3", price: 0, cat: "cosm", img: "" },
-  { uid: 2004, name: "Produs nou 4", price: 0, cat: "cosm", img: "" },
+  { uid: 2001, name: "Produs nou 1", price: 0, oldprice: 0, cat: "cosm", img: "" },
+  { uid: 2002, name: "Produs nou 2", price: 0, oldprice: 0, cat: "cosm", img: "" },
+  { uid: 2003, name: "Produs nou 3", price: 0, oldprice: 0, cat: "cosm", img: "" },
+  { uid: 2004, name: "Produs nou 4", price: 0, oldprice: 0, cat: "cosm", img: "" },
   // Produse apicole
-  { uid: 3001, name: "Produs nou 1", price: 0, cat: "apic", img: "" },
-  { uid: 3002, name: "Produs nou 2", price: 0, cat: "apic", img: "" },
-  { uid: 3003, name: "Produs nou 3", price: 0, cat: "apic", img: "" },
-  { uid: 3004, name: "Produs nou 4", price: 0, cat: "apic", img: "" },
+  { uid: 3001, name: "Produs nou 1", price: 0, oldprice: 0, cat: "apic", img: "" },
+  { uid: 3002, name: "Produs nou 2", price: 0, oldprice: 0, cat: "apic", img: "" },
+  { uid: 3003, name: "Produs nou 3", price: 0, oldprice: 0, cat: "apic", img: "" },
+  { uid: 3004, name: "Produs nou 4", price: 0, oldprice: 0, cat: "apic", img: "" },
   // Produse terapeutice
-  { uid: 4001, name: "Produs nou 1", price: 0, cat: "terap", img: "" },
-  { uid: 4002, name: "Produs nou 2", price: 0, cat: "terap", img: "" },
-  { uid: 4003, name: "Produs nou 3", price: 0, cat: "terap", img: "" },
-  { uid: 4004, name: "Produs nou 4", price: 0, cat: "terap", img: "" },
+  { uid: 4001, name: "Produs nou 1", price: 0, oldprice: 0, cat: "terap", img: "" },
+  { uid: 4002, name: "Produs nou 2", price: 0, oldprice: 0, cat: "terap", img: "" },
+  { uid: 4003, name: "Produs nou 3", price: 0, oldprice: 0, cat: "terap", img: "" },
+  { uid: 4004, name: "Produs nou 4", price: 0, oldprice: 0, cat: "terap", img: "" },
 ];
-
 </script>
 <script>
 /* ============ CONFIG ============ */
@@ -867,11 +940,14 @@ let activeCat = null;
 let cart = {};
 
 function loadProducts(){
+  // 1) modificările tale în curs (din modul editare) au prioritate
   try{
     const saved = localStorage.getItem(STORE_KEY);
     if(saved) return JSON.parse(saved);
   }catch(e){}
-  return PRODUCTS.map(p=>({...p}));
+  // 2) altfel, catalogul oficial din products.js (ce văd toți clienții)
+  if(Array.isArray(window.PRODUCTS)) return window.PRODUCTS.map(p=>({...p}));
+  return [];
 }
 function saveProducts(){
   try{ localStorage.setItem(STORE_KEY, JSON.stringify(products)); }catch(e){}
@@ -933,25 +1009,38 @@ function render(){
       const thumbInner = p.img
         ? `<img class="pimg" src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="ph" style="display:none">${initial}</span>`
         : `<span class="ph">${initial}</span>`;
+      // reducere: dacă există preț vechi mai mare decât prețul curent
+      const hasSale = p.oldprice && p.oldprice > p.price;
+      const salePct = hasSale ? Math.round((1 - p.price/p.oldprice)*100) : 0;
       card.innerHTML = `
         <div class="thumb">
-          <span class="tag">${CAT_INFO[p.cat].label.split(" ")[0]}</span>
+          ${hasSale?`<span class="sale">-${salePct}%</span>`:`<span class="tag">${CAT_INFO[p.cat].label.split(" ")[0]}</span>`}
           ${p.rating?`<span class="rate">★ ${p.rating.toFixed(1)}</span>`:""}
           ${thumbInner}
-          <button class="img-btn" title="Schimbă poza" onclick="editImage(${p.uid})">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-          </button>
-          <button class="del" title="Șterge produsul" onclick="delProduct(${p.uid})">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-          </button>
+          <div class="edit-corner" title="Dublu-click pentru editare"></div>
         </div>
         <div class="body">
-          <div class="name" onclick="editField(${p.uid},'name')">${p.name}</div>
+          <div class="name">${p.name}</div>
           <div class="row">
-            <div class="price" onclick="editField(${p.uid},'price')">${p.price.toFixed(2)}<small> lei</small></div>
+            <div class="prices">
+              ${hasSale?`<span class="oldprice">${p.oldprice.toFixed(2)} lei</span>`:""}
+              <span class="price">${p.price.toFixed(2)}<small> lei</small></span>
+            </div>
             <button class="add" onclick='addToCart(${JSON.stringify(p.name)}, ${p.price})'>În coș</button>
           </div>
         </div>`;
+      // dublu-click pe colțul din dreapta-sus → editare (cere PIN dacă nu ești admin)
+      card.querySelector('.edit-corner').addEventListener('dblclick', e=>{
+        e.stopPropagation();
+        openEdit(p.uid);
+      });
+      // pe touch: dublu-tap pe colț
+      let cornerTap = 0;
+      card.querySelector('.edit-corner').addEventListener('touchend', e=>{
+        const now = Date.now();
+        if(now - cornerTap < 350){ e.preventDefault(); openEdit(p.uid); }
+        cornerTap = now;
+      });
       row.appendChild(card);
     });
     grid.appendChild(row);
@@ -965,31 +1054,32 @@ function addProduct(cat){
     toast("Intră în modul editare pentru a adăuga produse");
     return;
   }
-  const prefix = {supl:1000,cosm:2000,apic:3000,terap:4000}[cat] || 5000;
-  const newUid = Date.now();
-  products.push({ uid:newUid, name:"Produs nou", price:0, cat, img:"" });
+  const uid = Date.now();
+  products.push({ uid, name:"Produs nou", price:0, oldprice:0, cat, img:"" });
   saveProducts();
   renderCats(); render();
-  toast("Produs adăugat ✓ — apasă pe nume/preț ca să le editezi");
+  openEditModal(uid);   // deschide direct editarea ca să-l completezi pe loc
 }
-function editField(uid, field){
-  if(!document.body.classList.contains('admin')) return;
+// deschide modalul de editare cu datele produsului completate
+function openEditModal(uid){
   const p = products.find(x=>x.uid===uid); if(!p) return;
-  if(field==='name'){
-    const v = prompt("Denumirea produsului:", p.name);
-    if(v!==null && v.trim()){ p.name=v.trim(); saveProducts(); render(); }
-  }else if(field==='price'){
-    const v = prompt("Prețul (lei):", p.price);
-    if(v!==null){ const n=parseFloat(v); if(!isNaN(n)&&n>=0){ p.price=n; saveProducts(); render(); } }
-  }
-}
-function editImage(uid){
-  if(!document.body.classList.contains('admin')){
-    toast("Intră în modul editare pentru a schimba poza");
-    return;
-  }
   imgTargetUid = uid;
+  imgPending = null;
+  document.getElementById('edName').value  = p.name || "";
+  document.getElementById('edPrice').value = (p.price||p.price===0) ? p.price : "";
+  document.getElementById('edOld').value   = p.oldprice ? p.oldprice : "";
+  document.getElementById('imgUrl').value  = (p.img && !p.img.startsWith('data:')) ? p.img : "";
+  renderEdPreview(p.img, p.name);
   document.getElementById('imgModal').classList.add('show');
+}
+// previzualizarea pozei în modal
+function renderEdPreview(src, name){
+  const box = document.getElementById('edPreview');
+  if(src){ box.innerHTML = `<img src="${src}" alt="">`; }
+  else { box.innerHTML = `<span class="ed-ph">${(name||"?").trim().charAt(0).toUpperCase()||"?"}</span>`; }
+}
+function edPreviewUrl(url){
+  if(url.trim()) renderEdPreview(url.trim(), document.getElementById('edName').value);
 }
 function delProduct(uid){
   if(!document.body.classList.contains('admin')){
@@ -1003,15 +1093,29 @@ function delProduct(uid){
 }
 
 /* ============ MOD ADMIN ============ */
+let pendingEditUid = null;  // produsul care așteaptă editare după PIN
+
+// colțul din dreapta-sus al PAGINII: dublu-click → intră în editare (util când nu ai produse)
 let lastTap = 0;
 const secret = document.getElementById("secret");
-secret.addEventListener("dblclick", openPin);
-// suport touch: două atingeri rapide
-secret.addEventListener("touchend", e=>{
-  const now = Date.now();
-  if(now - lastTap < 350){ e.preventDefault(); openPin(); }
-  lastTap = now;
-});
+if(secret){
+  secret.addEventListener("dblclick", ()=>{ pendingEditUid = null; openPin(); });
+  secret.addEventListener("touchend", e=>{
+    const now = Date.now();
+    if(now - lastTap < 350){ e.preventDefault(); pendingEditUid = null; openPin(); }
+    lastTap = now;
+  });
+}
+
+// dublu-click pe colțul unui CARD apelează asta
+function openEdit(uid){
+  if(document.body.classList.contains('admin')){
+    openEditModal(uid);       // deja admin → direct la editare
+  }else{
+    pendingEditUid = uid;     // cere PIN, apoi deschide editarea
+    openPin();
+  }
+}
 
 function openPin(){
   document.getElementById("pinModal").classList.add("show");
@@ -1020,21 +1124,70 @@ function openPin(){
   ins.forEach(i=>i.value="");
   ins[0].focus();
 }
-function closePin(){ document.getElementById("pinModal").classList.remove("show"); }
+function closePin(){
+  document.getElementById("pinModal").classList.remove("show");
+  pendingEditUid = null;
+}
 function checkPin(){
   const ins = document.querySelectorAll(".pin-inputs input");
   const code = [...ins].map(i=>i.value).join("");
   if(code === ADMIN_PIN){
     document.body.classList.add("admin");
-    closePin();
+    document.getElementById("pinModal").classList.remove("show");
     toast("Mod editare activat");
-    window.scrollTo({top:document.querySelector('.admin-add').offsetTop-90, behavior:'smooth'});
+    const uid = pendingEditUid; pendingEditUid = null;
+    if(uid!=null){
+      openEditModal(uid);   // deschide direct editarea produsului
+    }else{
+      // intrat prin colțul paginii → du-te la magazin ca să vezi butoanele „+ Adaugă produs"
+      toast('Apasă „+ Adaugă produs" la categoria dorită');
+      const m = document.getElementById('magazin');
+      if(m) window.scrollTo({top:m.offsetTop-80, behavior:'smooth'});
+    }
   }else{
     document.getElementById("pinErr").textContent = "PIN greșit. Mai încearcă.";
     ins.forEach(i=>i.value=""); ins[0].focus();
   }
 }
 function exitAdmin(){ document.body.classList.remove("admin"); toast("Ai ieșit din editare"); }
+
+/* aruncă modificările locale și încarcă fix ce e în products.js */
+function resetToFile(){
+  if(!confirm("Arunci modificările locale și încarci produsele din products.js?")) return;
+  try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+  products = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(p=>({...p})) : [];
+  renderCats(); render();
+  toast("Încărcat din products.js ✓");
+}
+
+/* ============ EXPORT index.html complet cu produse ============ */
+function downloadProducts(){
+  // construiește lista de produse ca text
+  const linii = products.map(p=>{
+    const name = String(p.name||"").replace(/\\/g,"\\\\").replace(/"/g,'\\"');
+    const img  = String(p.img||"").replace(/\\/g,"\\\\").replace(/"/g,'\\"');
+    const price = Number(p.price)||0;
+    const old   = Number(p.oldprice)||0;
+    return `  { uid: ${p.uid}, name: "${name}", price: ${price}, oldprice: ${old}, cat: "${p.cat}", img: "${img}" },`;
+  }).join("\n");
+
+  // ia HTML-ul paginii curente și înlocuiește lista window.PRODUCTS cu cea nouă
+  let html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+  const nou = `window.PRODUCTS = [\n${linii}\n];`;
+  // înlocuiește orice window.PRODUCTS = [ ... ]; cu noua listă
+  html = html.replace(/window\.PRODUCTS\s*=\s*\[[\s\S]*?\];/, nou);
+
+  const blob = new Blob([html], {type:"text/html"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "index.html";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  toast("index.html descărcat ✓ — acesta e site-ul cu produsele tale");
+}
 
 // navigare automată între cifrele PIN
 document.querySelectorAll(".pin-inputs input").forEach((inp,idx,arr)=>{
@@ -1085,13 +1238,9 @@ function updateCart(){
     </div>`).join("");
 
   const subtotal = items.reduce((s,i)=>s+i.price*i.qty,0);
-  const ship = subtotal>=FREE_SHIP || subtotal===0 ? 0 : 19;
-  const rest = Math.max(0, FREE_SHIP - subtotal);
   document.getElementById("cartFoot").innerHTML = `
-    ${rest>0?`<div class="line">Încă <b style="color:var(--miere-2)">${rest.toFixed(2)} lei</b> până la transport gratuit</div>`:`<div class="line" style="color:var(--verde-2)">✓ Ai transport gratuit</div>`}
     <div class="line"><span>Subtotal</span><span>${subtotal.toFixed(2)} lei</span></div>
-    <div class="line"><span>Transport</span><span>${ship===0?"Gratuit":ship.toFixed(2)+" lei"}</span></div>
-    <div class="total"><span>Total</span><span>${(subtotal+ship).toFixed(2)} lei</span></div>
+    <div class="total"><span>Total</span><span>${subtotal.toFixed(2)} lei</span></div>
     <button class="checkout" onclick="checkout()">Finalizează comanda</button>
     <div class="note">Plată la livrare sau online · Factură automată pe email</div>`;
 }
@@ -1236,7 +1385,7 @@ const LEGAL = {
     <p>Dreptul de retragere NU se aplică produselor sigilate care nu pot fi returnate din motive de igienă și care au fost desigilate (ex. cosmetice deschise, suplimente desigilate), conform legii.</p>`},
   livrare:{title:"Livrare și transport", body:`
     <h3>Costuri</h3>
-    <p>Transport <b>gratuit</b> pentru comenzi peste 200 lei. Sub acest prag, costul transportului este afișat la finalizarea comenzii.</p>
+    <p>Costul transportului este afișat la finalizarea comenzii, în funcție de localitate și de curierul ales.</p>
     <h3>Termene</h3>
     <p>Livrarea se face în general în 2–4 zile lucrătoare prin curier, în funcție de disponibilitatea produselor și de localitate.</p>
     <h3>Ridicare personală</h3>
@@ -1270,33 +1419,117 @@ function closeLegal(){
 /* ============ POZĂ PRODUS (admin) ============ */
 let imgTargetUid = null;
 let imgPending = null;
+let camStream = null;
 function imgFromFile(input){
   const file = input.files[0];
   if(!file) return;
   if(file.size > 2*1024*1024){ toast("Poza e prea mare (max 2MB)"); return; }
   const reader = new FileReader();
-  reader.onload = e=>{ imgPending = e.target.result; toast("Poză încărcată — apasă Salvează"); };
+  reader.onload = e=>{
+    imgPending = e.target.result;
+    document.getElementById('imgUrl').value = "";  // linkul devine irelevant
+    renderEdPreview(imgPending, document.getElementById('edName').value);
+    toast("Poză încărcată — apasă Salvează");
+  };
   reader.readAsDataURL(file);
 }
+
+/* ============ CAMERĂ LIVE (merge pe calculator cu webcam ȘI pe telefon) ============ */
+async function camStart(){
+  const box = document.getElementById('camBox');
+  const video = document.getElementById('camVideo');
+  try{
+    // încearcă camera din spate (telefon), altfel orice cameră (laptop)
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: "environment" } }, audio: false
+    }).catch(()=>navigator.mediaDevices.getUserMedia({ video:true, audio:false }));
+    video.srcObject = camStream;
+    box.classList.add('show');
+    toast("Cameră pornită — apasă Capturează");
+  }catch(err){
+    toast("Nu pot accesa camera. Verifică permisiunea în browser.");
+  }
+}
+function camCapture(){
+  const video = document.getElementById('camVideo');
+  if(!video.videoWidth){ toast("Camera nu e gata, mai așteaptă o clipă"); return; }
+  // desenează cadrul curent pe un canvas și-l face poză
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  imgPending = canvas.toDataURL('image/jpeg', 0.85);
+  document.getElementById('imgUrl').value = "";
+  renderEdPreview(imgPending, document.getElementById('edName').value);
+  camStop();
+  toast("Poză făcută ✓ — apasă Salvează");
+}
+function camStop(){
+  if(camStream){ camStream.getTracks().forEach(t=>t.stop()); camStream = null; }
+  const v = document.getElementById('camVideo'); if(v) v.srcObject = null;
+  document.getElementById('camBox').classList.remove('show');
+}
+// salvează TOT: nume, preț, preț vechi, poză
 function imgSave(){
   const p = products.find(x=>x.uid===imgTargetUid); if(!p){ closeImgModal(); return; }
-  const url = document.getElementById('imgUrl').value.trim();
+  const name = document.getElementById('edName').value.trim();
+  const price = parseFloat(document.getElementById('edPrice').value);
+  const oldV  = parseFloat(document.getElementById('edOld').value);
+  const url   = document.getElementById('imgUrl').value.trim();
+
+  if(!name){ toast("Scrie numele produsului"); return; }
+  if(isNaN(price) || price < 0){ toast("Scrie un preț valid"); return; }
+
+  p.name = name;
+  p.price = price;
+  p.oldprice = (!isNaN(oldV) && oldV > 0) ? oldV : 0;
   if(imgPending){ p.img = imgPending; }
   else if(url){ p.img = url; }
-  else { toast("Adaugă un link sau încarcă o poză"); return; }
-  saveProducts(); render(); closeImgModal();
-  toast("Poză salvată ✓");
+  // dacă nu s-a atins poza, rămâne cea existentă
+
+  saveProducts(); renderCats(); render(); closeImgModal();
+  downloadProducts();   // descarcă automat site-ul cu produsele actualizate
+  toast("Produs salvat și site descărcat ✓");
 }
 function imgClear(){
-  const p = products.find(x=>x.uid===imgTargetUid);
-  if(p){ p.img=""; saveProducts(); render(); }
-  closeImgModal();
-  toast("Poză ștearsă");
+  imgPending = "";
+  document.getElementById('imgUrl').value = "";
+  renderEdPreview("", document.getElementById('edName').value);
+  toast("Poză ștearsă — apasă Salvează");
 }
+// ștergere produs direct din modal
+function delFromModal(){
+  if(imgTargetUid==null) return;
+  if(!confirm("Ștergi definitiv acest produs?")) return;
+  const uid = imgTargetUid;
+  closeImgModal();
+  delProduct(uid);
+}
+
+/* ============ BUTON TIKTOK (provizoriu) ============ */
+/* Deocamdată copiază în clipboard un text gata de postat pe TikTok.
+   Când îmi spui exact ce vrei să facă, modificăm aici. */
+function tiktokAction(){
+  const name = document.getElementById('edName').value.trim() || "Produs";
+  const price = document.getElementById('edPrice').value || "0";
+  const text = `🌿 ${name} — ${price} lei\nComandă direct pe site! #naturist #verda #produsenaturale`;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text)
+      .then(()=>toast("Text TikTok copiat ✓ — lipește-l în descriere"))
+      .catch(()=>toast("Nu am putut copia. Text: "+text));
+  }else{
+    toast("Text TikTok: "+text);
+  }
+}
+
 function closeImgModal(){
+  camStop();   // oprește camera dacă era pornită
   document.getElementById('imgModal').classList.remove('show');
   document.getElementById('imgUrl').value="";
   document.getElementById('imgFile').value="";
+  document.getElementById('edName').value="";
+  document.getElementById('edPrice').value="";
+  document.getElementById('edOld').value="";
   imgPending=null; imgTargetUid=null;
 }
 
